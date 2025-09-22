@@ -1,0 +1,58 @@
+package banking;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Customer {
+
+    private String bankName; // 단일 은행 이름
+    private List<String> customers = new ArrayList<>();     // 고객 이름 리스트
+    private List<String> accountNum = new ArrayList<>();    // 계좌번호 리스트
+    private List<Integer> balance = new ArrayList<>();      // 잔액 리스트
+
+    public Customer() {}
+
+    public Customer(String bankName, List<String> customers,
+                    List<String> accountNum, List<Integer> balance) {
+        this.bankName = bankName;
+        this.customers = customers;
+        this.accountNum = accountNum;
+        this.balance = balance;
+    }
+    
+    public int findCustomer(String name) {
+    	return customers.indexOf(name);
+    }
+    
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public List<String> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<String> customers) {
+        this.customers = customers;
+    }
+
+    public List<String> getAccountNum() {
+        return accountNum;
+    }
+
+    public void setAccountNum(List<String> accountNum) {
+        this.accountNum = accountNum;
+    }
+
+    public List<Integer> getBalance() {
+        return balance;
+    }
+
+    public void setBalance(List<Integer> balance) {
+        this.balance = balance;
+    }
+}

@@ -1,0 +1,26 @@
+package studentManager;
+
+import java.util.Scanner;
+
+public interface StudentProgram {
+	/* 메뉴 기능 설명
+     * 1. 학생 등록
+     * 2. 학생 전체 리스트 출력
+     * 3. 학생 검색 (학생 정보 및 수강 정보)
+     * 4. 학생 정보수정
+     * 5. 학생 삭제
+     * 6. 수강 신청 (한 학생에 대한)
+     * 7. 수강 철회 (한 학생에 대한)
+     * 8. 과목 별 신청자 리스트(학생정보)
+     * 9. 프로그램 종료
+     */
+
+    void insertStudent(Scanner scan);      // 학생 등록
+    void printStudent();                   // 전체 학생 정보 출력
+    void searchStudent(Scanner scan);      // 학생 검색
+    void reviseStudentInfo(Scanner scan);  // 학생 정보수정
+    void deleteStudent(Scanner scan);      // 학생 삭제
+    void insertSubject(Scanner scan);      // 수강 신청
+    void deleteSubject(Scanner scan);      // 수강 철회
+    void printSubjectperStudent (Scanner scan);     // 과목 별 신청자 리스트(학생정보)
+}

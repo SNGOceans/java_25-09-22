@@ -1,0 +1,21 @@
+package banking;
+
+import java.util.Scanner;
+
+public interface BankProgram {
+	/* 
+     * 은행 관리 프로그램의 기능을 최적화 (Interface)
+     * 1. 입금
+     * 2. 출금
+     * 3. 송금(타 계좌로 송금)
+     * 4. 통장 출력
+     * 5. 종료 (Main에서 처리)
+     */
+	
+	void menuPrint();                       // 메뉴 출력
+    void depositMoney(Scanner scan);		// 입금
+    void withdrawMoney(Scanner scan);		// 출금
+    void transferMoney(Scanner scan);      // 송금(타 계좌로 송금)
+    void printaccountInfo();      			// 통장 정보 출력
+    
+}

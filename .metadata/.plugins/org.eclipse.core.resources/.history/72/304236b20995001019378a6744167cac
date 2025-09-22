@@ -1,0 +1,20 @@
+package banking;
+
+import java.util.List;
+
+public class Customer {
+	private List<String> bankName, accountHolder, accountNumber;
+	private List<Integer> balance;
+	
+	public Customer() {};
+	public Customer(List<String> bankName, List<String> accountHolder,
+			List<String> accountNumber, List<Integer> balance) {
+		this.bankName = bankName;
+		this.accountHolder = accountHolder;
+		this.accountNumber = accountNumber;
+		this.balance = balance;
+	}
+	
+	
+
+}

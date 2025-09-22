@@ -1,0 +1,86 @@
+package day10;
+
+import java.util.*;
+
+public class ProductMain {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // 메뉴 리스트
+        List<Product> menuList = new ArrayList<>();
+        
+        menuList.add(new Product("콜라", 1000));
+        menuList.add(new Product("사이다", 1200));
+        menuList.add(new Product("오렌지주스", 1500));
+        
+        // 주문 내역 저장용 리스트 (Map 사용)
+        List<Map<String, Object>> orderList = new ArrayList<>();
+        
+        while (true) {
+            System.out.println("\n-- menu --");
+            System.out.println("1. 메뉴보기");
+            System.out.println("2. 주문하기");
+            System.out.println("3. 주문내역 보기");
+            System.out.println("4. 종료");
+            System.out.print("선택: ");
+            
+            int choice = sc.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    System.out.println("\n[전체 메뉴]");
+                    for (int i = 0; i < menuList.size(); i++) {
+                        System.out.println((i + 1) + ". " + menuList.get(i));
+                    }
+                    break;
+                    
+                case 2:
+                    System.out.print("주문할 메뉴 번호: ");
+                    int menuNum = sc.nextInt();
+                    
+                    if (menuNum < 1 || menuNum > menuList.size()) {
+                        System.out.println("잘못된 메뉴 번호입니다.");
+                        break;
+                    }
+                    
+                    Product selected = menuList.get(menuNum - 1);
+                    
+                    System.out.print("수량 입력: ");
+                    int count = sc.nextInt();
+                    
+                    int total = selected.getPrice() * count;
+                    
+                    // 주문 정보 저장
+                    Map<String, Object> order = new HashMap<>();
+                    order.put("name", selected.getName());
+                    order.put("price", selected.getPrice());
+                    order.put("count", count);
+                    order.put("total", total);
+                    
+                    orderList.add(order);
+                    
+                    System.out.println("주문이 완료되었습니다.");
+                    break;
+                    
+                case 3:
+                    System.out.println("\n[전체 주문 내역]");
+                 for (Map<String, Object> o : orderList) {
+                     System.out.println("상품명: " + o.get("name") +
+                                        ", 가격: " + o.get("price") +
+                                        ", 수량: " + o.get("count") +
+                                        ", 총액: " + o.get("total"));
+                 }
+                    break;
+                    
+                case 4:
+                    System.out.println("프로그램을 종료합니다.");
+                    sc.close();
+                    return;
+                    
+                default:
+                    System.out.println("잘못된 선택입니다.");
+            }
+        }
+    }
+}

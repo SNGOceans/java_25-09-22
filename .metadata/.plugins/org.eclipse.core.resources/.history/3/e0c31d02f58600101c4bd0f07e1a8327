@@ -1,0 +1,19 @@
+package day06;
+
+import java.util.Arrays;
+
+public class ArrayEx03 {
+
+	public static void main(String[] args) {
+		// 정수 배열[10]개 생성 후
+		// 1부터 10까지 순서대로 저장 후 출력
+		
+		int[] arr = new int[10];
+		
+		for(int i=0; i<arr.length; i++) {
+			arr[i] = i+1;
+		}
+		System.out.println(Arrays.toString(arr));
+	}
+
+}

@@ -1,0 +1,32 @@
+package day14;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ListEx02 {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        List<Integer> list = new ArrayList<>();
+
+        System.out.print("숫자들을 공백으로 구분해서 입력하세요: ");
+        String input = scan.nextLine(); // 한 줄 입력
+        String[] tokens = input.split(" "); // 공백 기준으로 분리
+
+        for (String token : tokens) {
+           int num = Integer.parseInt(token); // 문자열 → 정수 변환
+           list.add(num);
+        }
+
+        // 합계 계산
+        int sum = 0;
+        for (int num : list) {
+            sum += num;
+        }
+
+        // 결과 출력
+        System.out.println("입력한 숫자 리스트: " + list);
+        System.out.println("전체 합계: " + sum);
+    }
+}

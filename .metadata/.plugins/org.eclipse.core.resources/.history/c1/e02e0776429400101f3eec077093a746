@@ -1,0 +1,68 @@
+package day17;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class File05 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		/* 명단 출력 / 합계 / 평균 출력
+		* 점수가 80점 이상인 학생의 명단과 총 인원수 출력
+		* 
+		* 읽어들이는 파일은 모두 String
+		* 계산을 위해서는 변환이 필요
+		* Integer.parseInt()
+		*/
+		// Map 생성: 학생 이름 / 점수
+        Map<String, Integer> StdScoreMap = new HashMap<>();
+		
+        String fileName = "D:\\web_0826_PJH\\memo\\sample.txt";
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		while(true) {
+			String line = br.readLine(); // 한 라인으로 읽어들이기
+			if(line == null) {
+				break;
+			}
+			String[] parts = line.split(" ");
+			if(parts.length != 2) continue;
+			
+			String name = parts[0].trim();
+			int score = Integer.parseInt(parts[1].trim());
+			
+			StdScoreMap.put(name, score);
+		}
+		br.close();
+		
+		// 전체 명단 출력
+		System.out.println("--전체 명단--");
+		for(Map.Entry<String, Integer> entry : StdScoreMap.entrySet()) {
+			System.out.println(entry.getKey()+": "+entry.getValue());
+		}
+		
+		// 합계 출력
+		System.out.println("\n--합계--");
+		int total = 0;
+		double average;
+		for(int score : StdScoreMap.values()) {
+			total +=score;
+		}
+		average = total / StdScoreMap.size();
+		System.out.println("합계: "+total
+							+"\n평균: "+average);
+		
+		System.out.println("\n--점수가 80점 이상인 학생");
+		int count = 0;
+		for(Map.Entry<String, Integer> entry : StdScoreMap.entrySet()) {
+			if(entry.getValue()>=80) {
+				System.out.println(entry.getKey()+": "+entry.getValue());
+				count++;
+			}
+		}
+		System.out.println("\n점수가 80점 이상인 학생 수: "+count);
+	}
+
+}

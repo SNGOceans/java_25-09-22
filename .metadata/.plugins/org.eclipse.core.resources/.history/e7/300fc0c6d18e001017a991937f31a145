@@ -1,0 +1,53 @@
+package day13;
+
+import java.util.Date;
+import java.util.Calendar;
+
+public class Date01 {
+
+	public static void main(String[] args) {
+		// 날짜 시간 클래스
+		/* Date 클래스 => deprecated(비권장)
+		 * / Calendar / LocalDateTime
+		 */
+		
+		Calendar rightNow = Calendar.getInstance();
+		System.out.println(rightNow.get(Calendar.YEAR));
+		
+		// 월 0~11로 표현되므로, +1을 붙여주어야 함.
+		System.out.println(rightNow.get(Calendar.MONTH)+1);
+		System.out.println(rightNow.get(Calendar.DAY_OF_MONTH));
+		
+		System.out.println(rightNow.get(Calendar.DAY_OF_WEEK));
+		System.out.println(rightNow.get(Calendar.DAY_OF_YEAR));
+		
+		// 2025-9-11(목)
+		int year = rightNow.get(Calendar.YEAR);
+		int month = rightNow.get(Calendar.MONTH)+1;
+		int day = rightNow.get(Calendar.DAY_OF_MONTH);
+		
+		System.out.println(year+"-0"+month+"-"+day);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+}

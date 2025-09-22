@@ -1,0 +1,154 @@
+package advancedDictionaryManager;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class WordController implements DictionaryProgram {
+
+    private Map<String, List<String>> dictionary = new HashMap<>();
+
+    public WordController() {
+        dictionary.put("apple", new ArrayList<>(Arrays.asList("사과")));
+        dictionary.put("banana", new ArrayList<>(Arrays.asList("바나나")));
+        dictionary.put("grape", new ArrayList<>(Arrays.asList("포도")));
+        dictionary.put("peach", new ArrayList<>(Arrays.asList("복숭아")));
+        dictionary.put("lemon", new ArrayList<>(Arrays.asList("레몬")));
+    }
+
+    public WordController(Map<String, List<String>> dictionary) {
+        this.dictionary = dictionary;
+    }
+
+    @Override
+    public void addDict(Scanner scan) {
+        System.out.print("단어를 입력하세요: ");
+        String voca = scan.next();
+
+        if (dictionary.containsKey(voca)) {
+            System.out.println("이미 등록된 단어입니다.");
+            return; // 바로 종료
+        }
+
+        System.out.print("뜻을 입력하세요: ");
+        String meaning = scan.next();
+        List<String> meanings = new ArrayList<>();
+        meanings.add(meaning);
+        dictionary.put(voca, meanings);
+        System.out.println("새 단어가 등록되었습니다.");
+    }
+
+    @Override
+    public void searchVoca(Scanner scan) {
+        System.out.print("검색할 단어를 입력하세요: ");
+        String voca = scan.next();
+
+        if (dictionary.containsKey(voca)) {
+            System.out.println(voca + " : " + String.join(", ", dictionary.get(voca)));
+        } else {
+            System.out.println("등록되지 않은 단어입니다.");
+        }
+    }
+
+    @Override
+    public void appendMeaning(Scanner scan) {
+        System.out.print("뜻을 추가할 단어를 입력하세요: ");
+        String voca = scan.next();
+
+        if (dictionary.containsKey(voca)) {
+            System.out.print("추가할 뜻을 입력하세요: ");
+            String newMeaning = scan.next();
+
+            List<String> meanings = dictionary.get(voca);
+            if (meanings.contains(newMeaning)) {
+                System.out.println("이미 등록된 뜻입니다. 중복 추가하지 않습니다.");
+            } else {
+                meanings.add(newMeaning);
+                System.out.println("뜻이 추가되었습니다.");
+            }
+        } else {
+            System.out.println("해당 단어는 등록되어 있지 않습니다.");
+        }
+    }
+
+    @Override
+    public void reviseMeaning(Scanner scan) {
+        System.out.print("단어 입력: ");
+        String voca = scan.next();
+
+        if (dictionary.containsKey(voca)) {
+            List<String> meanings = dictionary.get(voca);
+            System.out.println("현재 뜻 목록:");
+            for (int i = 0; i < meanings.size(); i++) {
+                System.out.println((i + 1) + ". " + meanings.get(i));
+            }
+
+            System.out.print("수정할 뜻 번호 입력: ");
+            int index = scan.nextInt() - 1;
+
+            if (index >= 0 && index < meanings.size()) {
+                System.out.print("새로운 뜻 입력: ");
+                String newMeaning = scan.next();
+
+                if (meanings.contains(newMeaning)) {
+                    System.out.println("이미 등록된 뜻입니다. 중복으로 수정할 수 없습니다.");
+                } else {
+                    meanings.set(index, newMeaning);
+                    System.out.println("뜻이 수정되었습니다.");
+                }
+            } else {
+                System.out.println("잘못된 번호입니다.");
+            }
+        } else {
+            System.out.println("단어가 등록되어 있지 않습니다.");
+        }
+    }
+
+    @Override
+    public void deleteVoca(Scanner scan) {
+        System.out.print("삭제할 단어를 입력하세요: ");
+        String voca = scan.next();
+
+        if (dictionary.remove(voca) != null) {
+            System.out.println("삭제되었습니다.");
+        } else {
+            System.out.println("해당 단어는 존재하지 않습니다.");
+        }
+    }
+
+    @Override
+    public void printVoca() {
+        System.out.println("--- 단어 목록 ---");
+        for (Map.Entry<String, List<String>> entry : dictionary.entrySet()) {
+            System.out.println(entry.getKey() + " : " + String.join(", ", entry.getValue()));
+        }
+    }
+
+    @Override
+    public void saveFileVoca(Scanner scan) throws IOException {
+    	System.out.print("파일 이름 입력: ");
+        String fileName = scan.next();
+    	
+        String filePath = "D:/web_0826_PJH/memo"+fileName;
+        FileWriter fw = new FileWriter(filePath);
+        for (Map.Entry<String, List<String>> entry : dictionary.entrySet()) {
+            String line = entry.getKey() + " : " + String.join(", ", entry.getValue()) + "\n";
+            fw.write(line);
+        }
+            System.out.println("단어장이 파일에 저장되었습니다.");
+        fw.close();
+    }
+
+    public Map<String, List<String>> getDictionary() {
+        return dictionary;
+    }
+
+    public void setDictionary(Map<String, List<String>> dictionary) {
+        this.dictionary = dictionary;
+    }
+}

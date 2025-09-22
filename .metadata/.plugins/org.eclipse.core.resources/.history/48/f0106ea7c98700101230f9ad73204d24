@@ -1,0 +1,60 @@
+package day07;
+
+import java.util.Scanner;
+
+public class Method02 {
+	
+	//메서드 생성 위치
+	/* 두 정수가 주어지면 두 수의 합을 리턴하는 메서드
+	 * 리턴타입 : int
+	 */
+	public int add(int num1, int num2) {
+		int result = 0;
+		result = num1 + num2;
+		return result;
+	}
+	
+	/* 두 정수가 주어지면 두 수의 합을 출력하는 메서드
+	 * 리턴타입 : void
+	 */
+	public void addprint(int num1, int num2) {
+		int result = 0;
+		//result = num1 + num2;
+		result = add(num1,num2); //main을 제외한 메서드 내부에서 다른 메서드를 호출 가능함. (static이 없더라도)
+		System.out.println(result);
+	}
+	
+	/* 매개변수가 없는 케이스 / 리턴타입도 없음. void.
+	 * 합을 출력
+	 */
+	public void sum3() {
+		 int num1 = 20;
+		 int num2 = 30;
+		 System.out.println(num1 + num2);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("숫자를 입력하세요");
+		
+		String input = scan.nextLine(); // 한 줄 입력 받기
+		String[] tokens = input.trim().split(" "); // 문자 나누기
+		
+		int[] numbers = new int[tokens.length]; // 학생 이름
+		
+		for(int i=0; i<tokens.length; i++) {
+		    numbers[i] = Integer.parseInt(tokens[i]); // 문자열 → 정수 변환
+		}
+		
+		Method02 m = new Method02(); // main 안에서 클래스를 객체화
+		m.addprint(numbers[0], numbers[1]);
+		
+		Method02 arb = new Method02();
+		arb.sum3();
+		//System.out.println(result);
+	}
+
+}

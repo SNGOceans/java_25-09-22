@@ -1,0 +1,133 @@
+
+package day17;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+enum Category{
+	// 상품 카테고리
+	FOOD(0.1),	//식품: 10%
+	CLOTHING(0.08),	 //의류: 8%
+	ELECTRONICS(0.15);  //전자제품: 15%
+	
+	private final double vatRate;
+	
+	Category(double vatRate){
+		this.vatRate = vatRate;
+	}
+
+	public double getVatRate() {
+		return vatRate;
+	}
+}
+
+public class EnumEx01 {
+
+	public static void main(String[] args) {
+		// 물건의 객체를 생성하고, 물건의 정보를 출력
+		Scanner scan = new Scanner(System.in);
+        Product manager = new Product();
+
+        while (true) {
+            int choice = manager.menuPrint(scan);
+
+            switch (choice) {
+                case 1: manager.addProduct(scan); break;
+                case 2: manager.printInfo(); break;
+                case 3: System.out.println("프로그램을 종료합니다."); return;
+            }
+        }
+	}
+
+}
+
+class Product {
+    private List<String> nameList = new ArrayList<>();
+    private List<Category> categoryList = new ArrayList<>();
+    private List<Integer> priceList = new ArrayList<>();
+
+    public Product() {}
+
+    public Product(List<String> nameList, List<Category> categoryList,
+                  List<Integer> priceList) {
+        this.nameList = nameList;
+        this.categoryList = categoryList;
+        this.priceList = priceList;
+    }
+
+    // 상품 추가 메서드
+    public void addProduct(Scanner scan) {
+        System.out.println("상품 이름을 입력하세요>");
+        String name = scan.next();
+
+        System.out.println("카테고리를 입력하세요 (FOOD, CLOTHING, ELECTRONICS)>");
+        String categoryInput = scan.next().toUpperCase();
+
+        Category category;
+        try {
+            category = Category.valueOf(categoryInput);
+        } catch (IllegalArgumentException e) {
+            System.out.println("잘못된 카테고리입니다. 상품 추가를 취소합니다.");
+            return;
+        }
+
+        System.out.println("가격을 입력하세요>");
+        int price = scan.nextInt();
+
+        nameList.add(name);
+        categoryList.add(category);
+        priceList.add(price);
+
+        System.out.println("상품 정보가 추가되었습니다.");
+    }
+    
+    public void printInfo() {
+        if (nameList.isEmpty()) {
+            System.out.println("등록된 상품이 없습니다.");
+            return;
+        }
+
+        System.out.println("\n-- 상품 목록 --");
+        for (int i = 0; i < nameList.size(); i++) {
+            String name = nameList.get(i);
+            Category category = categoryList.get(i);
+            int price = priceList.get(i);
+            double vatRate = category.getVatRate();
+            double totalPrice = price + (price * vatRate);
+
+            System.out.println("[상품 "+ (i+1) + "]" +
+            				   "\n상품명: " + name +
+                               "\n카테고리: " + category +
+                               "\n원가: " + price +
+                               "\n부가세 포함 가격: " + String.format("%.2f", totalPrice)+"\n");
+        }
+    }
+    
+    public int menuPrint(Scanner scan) {
+        System.out.println("-- 상품 관리 메뉴 --");
+        System.out.println("1. 상품 추가");
+        System.out.println("2. 상품 목록 출력");
+        System.out.println("3. 종료");
+        System.out.print("선택: ");
+        return scan.nextInt();
+    }
+
+
+    public List<String> getNameList() {
+        return nameList;
+    }
+
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public List<Integer> getPriceList() {
+        return priceList;
+    }
+
+	@Override
+	public String toString() {
+		return "Product [nameList=" + nameList + ", categoryList=" + categoryList + ", priceList=" + priceList + "]";
+	}
+}

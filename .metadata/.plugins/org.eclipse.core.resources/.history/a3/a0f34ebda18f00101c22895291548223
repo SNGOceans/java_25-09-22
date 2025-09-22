@@ -1,0 +1,49 @@
+package day14;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Map01 {
+
+    public static void main(String[] args) {
+        // Map 생성: 과일 이름(영어) → 가격
+        Map<String, Integer> fruitMap = new HashMap<>();
+
+        // 과일 추가
+        fruitMap.put("apple", 2000);
+        fruitMap.put("banana", 2500);
+        fruitMap.put("tangerine", 1800);
+        fruitMap.put("peach", 3000);
+        fruitMap.put("grape", 3500);
+
+        // 중복 키 테스트: grape 가격 덮어쓰기
+        fruitMap.put("grape", 2500); // 기존 값 덮어쓰기
+
+        // 전체 출력 (entrySet 사용)
+        System.out.println("--- 전체 과일 목록 (entrySet) ---");
+        for (Map.Entry<String, Integer> entry : fruitMap.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue() + " won");
+        }
+
+        // 특정 과일 가격 조회
+        System.out.println("\nbanana의 가격: " + fruitMap.get("banana") + " won");
+
+        // 가격 수정
+        fruitMap.put("banana", 2200);
+        System.out.println("banana 가격 수정 후: " + fruitMap.get("banana") + " won");
+
+        // 항목 삭제
+        fruitMap.remove("peach");
+        System.out.println("\npeach 삭제 후 목록:");
+        for (Map.Entry<String, Integer> entry : fruitMap.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue() + " won");
+        }
+
+        // 가격 합계 계산
+        int total = 0;
+        for (int price : fruitMap.values()) {
+            total += price;
+        }
+        System.out.println("\n전체 가격 합계: " + total + " won");
+    }
+}

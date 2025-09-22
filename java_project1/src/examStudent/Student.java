@@ -1,0 +1,104 @@
+package examStudent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Student {
+    private String studentNum;
+    private String studentName;
+    private int age;
+    private String stdphone_number;
+    private String studentAddress;
+    private List<Subject> subjects = new ArrayList<>();
+
+    // 기본 생성자
+    public Student() {}
+
+    // 매개변수 생성자
+    public Student(String studentNum, String studentName,
+                   int age, String phone_number, 
+                   String studentAddress, List<Subject> subjects) {
+        this.studentNum = studentNum;
+        this.studentName = studentName;
+        this.age = age;
+        this.stdphone_number = phone_number;
+        this.studentAddress = studentAddress;
+        this.subjects = subjects;
+    }
+
+    // 학생 정보 출력 메서드
+    public void printStudentInfo() {
+        System.out.println("---학생 정보---");
+        System.out.println("학번: " + studentNum);
+        System.out.println("이름: " + studentName);
+        System.out.println("나이: " + age);
+        System.out.println("전화번호: " + stdphone_number);
+        System.out.println("주소: " + studentAddress);
+        System.out.println("수강과목:");
+        printSubjectList();
+        System.out.println("수강과목 수: " + subjects.size());
+    }
+    
+    // 특정 과목코드에 해당하는 경우 학생 요약 정보 출력
+    public void printStudentSummaryIfEnrolled(String subjectCode) {
+        for (Subject subject : subjects) {
+            if (subject.getSubjectCode().equals(subjectCode)) {
+                System.out.println("학번: " + studentNum + "\n이름: " + studentName +
+                                   "\n나이: " + age + "\n전화번호: " + stdphone_number +
+                                   "\n주소: " + studentAddress);
+                return;
+            }
+        }
+    }
+    
+    // 수강 과목 출력 메서드
+    public void printSubjectList() {
+        if (subjects.isEmpty()) {
+            System.out.println("해당 학생은 수강과목이 없습니다.");
+        } else {
+            for (Subject subject : subjects) {
+                subject.printclassInfo();
+            }
+        }
+    }
+
+    // 수강 과목 추가 메서드
+    public void insertSubject(Subject subject) {
+        for (Subject s : subjects) {
+            if (s.getSubjectCode().equals(subject.getSubjectCode())) {
+                System.out.println("이미 추가한 과목입니다.");
+                return;
+            }
+        }
+        subjects.add(subject);
+    }
+
+    // 수강 과목 삭제(철회) 메서드
+    public void deleteSubject(Subject subject) {
+        boolean removed = subjects.removeIf(s -> s.getSubjectCode().equals(subject.getSubjectCode()));
+        if (removed) {
+            System.out.println("수강철회 완료!");
+        } else {
+            System.out.println("해당 과목을 찾을 수 없습니다.");
+        }
+    }
+
+    // Getter & Setter
+    public String getStudentNum() { return studentNum; }
+    public void setStudentNum(String studentNum) { this.studentNum = studentNum; }
+
+    public String getStudentName() { return studentName; }
+    public void setStudentName(String studentName) { this.studentName = studentName; }
+
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+
+    public String getStdPhone_number() { return stdphone_number; }
+    public void setStdPhone_number(String stdphone_number) { this.stdphone_number = stdphone_number; }
+
+    public String getStudentAddress() { return studentAddress; }
+    public void setStudentAddress(String studentAddress) { this.studentAddress = studentAddress; }
+
+    public List<Subject> getSubjects() { return subjects; }
+    public void setSubjects(List<Subject> subjects) { this.subjects = subjects; }
+}

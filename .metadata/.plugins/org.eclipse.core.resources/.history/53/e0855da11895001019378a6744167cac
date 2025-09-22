@@ -1,0 +1,57 @@
+package banking;
+
+import java.util.ArrayList;
+
+public class Customer {
+
+    private String bankName; // 단일 은행 이름
+    private ArrayList<String> accountHolder;
+    private ArrayList<String> accountNumber;
+    private ArrayList<Integer> balance;
+
+    public Customer() {
+        this.accountHolder = new ArrayList<>();
+        this.accountNumber = new ArrayList<>();
+        this.balance = new ArrayList<>();
+    }
+
+    public Customer(String bankName, ArrayList<String> accountHolder,
+                    ArrayList<String> accountNumber, ArrayList<Integer> balance) {
+        this.bankName = bankName;
+        this.accountHolder = accountHolder;
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public ArrayList<String> getAccountHolder() {
+        return accountHolder;
+    }
+
+    public void setAccountHolder(ArrayList<String> accountHolder) {
+        this.accountHolder = accountHolder;
+    }
+
+    public ArrayList<String> getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(ArrayList<String> accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public ArrayList<Integer> getBalance() {
+        return balance;
+    }
+
+    public void setBalance(ArrayList<Integer> balance) {
+        this.balance = balance;
+    }
+}

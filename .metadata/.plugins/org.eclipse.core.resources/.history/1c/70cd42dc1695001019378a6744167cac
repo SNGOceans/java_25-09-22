@@ -1,0 +1,44 @@
+package banking;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class BankController implements BankProgram {
+	
+	private List<Bank> bank = new ArrayList<>();
+	private Customer myBank;
+ 
+	// 기본 생성자
+	public BankController() {
+		bank.add(new Bank("우리은행"));
+	}
+	
+
+	@Override
+	public void depositMoney(Scanner scan) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void withdrawalMoney(Scanner scan) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void transferMoney(Scanner scan) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void printaccountInfo() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
+}

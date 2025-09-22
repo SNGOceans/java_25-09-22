@@ -1,0 +1,22 @@
+package day06;
+
+public class Array05 {
+
+	public static void main(String[] args) {
+		// 10개의 숫자 값을 가지는 배열 생성
+		// 1~50까지의 랜덤 수를 배열에 저장 => 출력
+		// 최대, 최소, 합계, 평균 출력
+		
+		int[] array = new int[10];
+		int max = array[0];
+		int min = array[0];
+		for (int i=0; i<10; i++) {
+			array[i] = (int)(50*Math.random());
+			max = Math.max(max, array[i]);
+			min = Math.min(min, array[i]);
+			System.out.println(array[i]);
+		}				
+		System.out.println("최댓값 :"+max+" "+"최솟값 :"+min);
+	}
+
+}

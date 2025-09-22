@@ -1,0 +1,17 @@
+package day06;
+
+public class Array04 {
+
+	public static void main(String[] args) {
+		// 배열
+		// 5개의 숫자 값을 가지는 배열을 생성
+		// 1 2 3 4 5 입력하고 / 출력
+		
+		int[] array = {1, 2, 3, 4, 5};
+		
+		for (int i=0; i<array.length; i++) {
+			System.out.println(array[i]);
+		}
+	}
+
+}

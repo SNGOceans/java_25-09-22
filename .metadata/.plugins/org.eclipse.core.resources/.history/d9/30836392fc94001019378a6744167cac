@@ -1,0 +1,94 @@
+package day18;
+
+public class Thread03 {
+
+	public static void main(String[] args) {
+		// 1부터 50까지, 51-100까지의 합을 구하는 두 개의 Thread를 생성
+		// 두 개의 Thread가 끝나고 나면, 
+		// Thread-0 : 1~50까지 출력 후 합계 출력 => 1초 sleep
+		// Thread-1 : 51~100까지 출력 후 합계 출력 => 1초 sleep
+		// Main Thread : Thread-0/Thread-1 합계를 더해 최종 출력
+		
+		// Thread.sleep() : 일정시간 대기상태
+		// milisecond 단위로 1초 : 1000ms
+		
+		// Runnable을 구현하는 방법
+		System.out.println(Thread.currentThread().getName());
+		System.out.println("main Thread start");
+		
+		// interface로 구현한 스레드 객체는 Thread의 객체가 없어서 실행이 되지 않음.
+		// Thread 객체를 생성해서 넣어줘야 함.
+		MyThread3 th1 = new MyThread3(1,50);
+		Thread t1 = new Thread(th1);
+		t1.start();
+		
+		// join() : 다른 스레드가 실행을 마칠 때까지 현재 스레드를 대기 상태로 만듬.
+		// sleep(): 일정 시간동안 스레드를 중지하고, 대기 상태로 만듬.
+		try{
+			t1.join();
+			Thread.sleep(1000); // 단위는 밀리세컨드(ms)
+			System.out.println(th1.getTotal());
+		} catch (InterruptedException e){
+			e.printStackTrace();
+		}
+		
+		Thread t2 = new Thread(new MyThread3(51,100));
+		t2.start();
+		
+		try {
+			t2.join();
+			System.out.println(th1.getTotal());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+				
+		System.out.println("main Thread end~!!");
+	}
+
+}
+
+class MyThread3 implements Runnable{
+	private int start;
+	private int end;
+	private int total;
+
+	@Override
+	public void run() {
+		//1부터 2000까지 반복 출력하는 구문 실행
+		for(int i=this.start; i<=this.end; i++) {
+			this.total += i; 
+		}		
+	}
+	
+	public MyThread3() {};
+	public MyThread3(int start, int end) {
+		this.start = start;
+		this.end = end;
+		this.total = 0;
+	}
+	
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	
+}

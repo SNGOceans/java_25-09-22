@@ -1,0 +1,167 @@
+package day16;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Student {
+	// Student Class 생성 (이름, 점수)
+	// Student class List 생성 객체를 추가 (10명)
+	// 학생 출력 : 홍길동 : 56
+	// 점수합계 출력
+	// 전체 인원 수
+	// 정렬 : 이름순으로 가나다라 정렬 (이름 순으로 오름차순)
+	
+	private List<String> nameList = new ArrayList<>();
+    private List<Integer> scoreList = new ArrayList<>();
+		
+	// 기본 생성자
+	public Student() {
+		nameList.add("홍길동");
+		scoreList.add(95);
+	}
+
+	// 매개변수 생성자: 외부에서 리스트를 받아 초기화
+	public Student(List<String> nameList, List<Integer> scoreList) {
+	    this.nameList = nameList;
+	    this.scoreList = scoreList;
+	}
+	
+	// 학생 정보 추가 메서드
+	public void addStudent(Scanner scan) {
+		System.out.println("학생 이름을 입력하세요>");
+		String name = scan.next();
+		
+		System.out.println("점수를 입력하세요>");
+		int score = scan.nextInt();
+		
+		nameList.add(name); 
+		scoreList.add(score);
+		
+		System.out.println("학생 정보가 추가되었습니다.");
+	}
+	
+	// 학생 및 점수 출력 메서드
+	public void printStudent() {
+		if(nameList.isEmpty()) {
+			System.out.println("등록된 학생이 없습니다.");
+		}
+		
+		for(int i=0; i<nameList.size(); i++) {
+			System.out.println("학생 "+(i+1)+": "+nameList.get(i)+" | 점수: "+scoreList.get(i));
+		}
+	}
+	
+	// 전체 인원 수 / 점수 합계, 평균 출력 메서드
+	public void printStat() {
+		if(nameList.isEmpty()) {
+			System.out.println("등록된 학생이 없습니다.");
+		}
+		
+		// 전체 인원 수를 계산
+		int sum1 = (int) nameList.stream()
+						         .count();
+		// 점수 합계를 계산
+		int sum2 = scoreList.stream()
+                  		    .mapToInt(Integer::intValue)
+                            .sum();
+		// 평균 점수를 계산 
+		double avg = scoreList.stream()
+					          .mapToInt(Integer::intValue)
+					          .average()
+					          .orElse(0.0);
+		
+		int over80 = (int) scoreList.stream()
+								   .filter(n -> n>=80)
+								   .count();
+		System.out.println("1. 전체 인원 수: " +sum1+
+						   "\n2. 점수 합계: "+sum2+
+						   "\n3. 평균 점수: "+avg+
+						   "\n4. 80점 이상 학생: "+over80+"명");
+	}
+	
+	// 이름 기준 정렬
+    public void sortByName() {
+        List<StudentEntry> tempList = new ArrayList<>();
+
+        for (int i = 0; i < nameList.size(); i++) {
+            tempList.add(new StudentEntry(nameList.get(i), scoreList.get(i)));
+        }
+
+        tempList.sort(Comparator.comparing(entry -> entry.name));
+
+        nameList.clear();
+        scoreList.clear();
+
+        for (StudentEntry entry : tempList) {
+            nameList.add(entry.name);
+            scoreList.add(entry.score);
+        }
+
+        System.out.println("이름 기준 정렬 완료!");
+    }
+    
+    // 점수 기준 내림차순 정렬
+    public void sortByScore() {
+        List<StudentEntry> tempList = new ArrayList<>();
+
+        for (int i = 0; i < nameList.size(); i++) {
+            tempList.add(new StudentEntry(nameList.get(i), scoreList.get(i)));
+        }
+
+        tempList.sort((a, b) -> Integer.compare(b.score, a.score));
+
+        nameList.clear();
+        scoreList.clear();
+
+        for (StudentEntry entry : tempList) {
+            nameList.add(entry.name);
+            scoreList.add(entry.score);
+        }
+
+        System.out.println("점수 기준 내림차순 정렬 완료!");
+    }
+
+    // 내부 클래스: 이름과 점수를 묶기 위한 구조
+    private static class StudentEntry {
+        String name;
+        int score;
+
+        StudentEntry(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+    }
+
+	// 메뉴 출력 및 선택값 반환
+    public int menuPrint(Scanner scan) {
+        System.out.println("\n-- menu --");
+        System.out.println("1. 학생 등록 |2. 학생 리스트 |3. 통계 | "
+        				    + "\n4. 이름 순 정렬 |5. 점수 정렬(내림차순) |6. 종료");
+        System.out.print("선택: ");
+        return scan.nextInt();
+    }
+    
+    public List<String> getNameList() {
+		return nameList;
+	}
+
+	public void setNameList(List<String> nameList) {
+		this.nameList = nameList;
+	}
+
+	public List<Integer> getScoreList() {
+		return scoreList;
+	}
+
+	public void setScoreList(List<Integer> scoreList) {
+		this.scoreList = scoreList;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+}

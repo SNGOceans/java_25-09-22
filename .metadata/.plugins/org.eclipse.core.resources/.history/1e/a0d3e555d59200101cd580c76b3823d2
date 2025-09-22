@@ -1,0 +1,26 @@
+package day16;
+
+import java.util.Scanner;
+
+public class StreamEx01 {
+
+	// main 메서드
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        Student manager = new Student();
+
+        while (true) {
+            int choice = manager.menuPrint(scan);
+            switch (choice) {
+                case 1: manager.addStudent(scan); break;
+                case 2: manager.printStudent(); break;
+                case 3: manager.printStat(); break;
+                case 4: manager.sortByName(); break;
+                case 5: manager.sortByScore(); break;
+                case 6: System.out.println("종료 합니다."); return;
+                default: System.out.println("잘못된 선택입니다.");
+            }
+        }
+    }
+
+}

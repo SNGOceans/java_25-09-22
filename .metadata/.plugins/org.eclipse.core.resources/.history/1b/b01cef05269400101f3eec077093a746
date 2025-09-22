@@ -1,0 +1,34 @@
+package day16;
+
+import java.util.Scanner;
+
+public class StreamEx02 {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        Customer manager = new Customer();
+
+        while (true) {
+            int choice = manager.menuPrint(scan);
+
+            switch (choice) {
+                case 1: manager.addStudent(scan); break;
+                case 2: manager.printStudent(); break;
+                case 3: System.out.println("\n-- 성인 고객 명단 (20세 이상, 이름순 정렬) --");
+                    manager.sortByName(); // 이름순 정렬
+                    for (int i = 0; i < manager.getNameList().size(); i++) {
+                        if (manager.getAgeList().get(i) >= 20) {
+                            System.out.println("이름: " + manager.getNameList().get(i)
+                                    + " | 나이: " + manager.getAgeList().get(i)
+                                    + " | 비용: " + manager.getExpenseList().get(i));
+                        }
+                    }
+                    break;
+                case 4: System.out.println("프로그램을 종료합니다."); break;
+                default: System.out.println("잘못된 선택입니다. 다시 입력해주세요."); break;
+            }
+
+            if (choice == 4) break;
+        }
+    }
+}

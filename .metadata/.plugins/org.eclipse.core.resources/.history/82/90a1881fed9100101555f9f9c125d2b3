@@ -1,0 +1,236 @@
+package examStudent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class StudentController implements StudentProgram {
+    private List<Student> students = new ArrayList<>();
+
+    public StudentController() {}
+
+    public StudentController(List<Student> students) {
+        this.students = students;
+    }
+
+    @Override
+    public void insertStudent(Scanner scan) {
+        System.out.println("학번을 입력하세요:");
+        String inputNum = scan.next();
+
+        for (Student s : students) {
+            if (s.getStudentNum().equals(inputNum)) {
+                System.out.println("이미 등록된 학번입니다.");
+                return;
+            }
+        }
+
+        Student s = new Student();
+        s.setStudentNum(inputNum);
+
+        System.out.println("이름을 입력하세요:");
+        s.setStudentName(scan.next());
+
+        System.out.println("나이를 입력하세요:");
+        s.setAge(scan.nextInt());
+
+        System.out.println("전화번호를 입력하세요:");
+        s.setStdPhone_number(scan.next());
+
+        scan.nextLine(); // 버퍼 정리
+        System.out.println("주소를 입력하세요:");
+        s.setStudentAddress(scan.nextLine());
+
+        students.add(s);
+        System.out.println("학생 등록 완료!");
+    }
+
+    @Override
+    public void printStudent() {
+        if (students.isEmpty()) {
+            System.out.println("등록된 학생이 없습니다.");
+            return;
+        }
+
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println("학생 리스트 " + (i + 1));
+            students.get(i).printStudentInfo();
+            System.out.println();
+        }
+    }
+
+    @Override
+    public void searchStudent(Scanner scan) {
+        System.out.println("검색할 학생 이름을 입력하세요:");
+        String name = scan.next();
+
+        for (Student s : students) {
+            if (s.getStudentName().equals(name)) {
+                s.printStudentInfo();
+                return;
+            }
+        }
+
+        System.out.println("해당 이름의 학생은 존재하지 않습니다.");
+    }
+
+    public int searchStudent(String number) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getStudentNum().equals(number)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void reviseStudentInfo(Scanner scan) {
+        System.out.println("수정할 학생의 학번을 입력하세요:");
+        String number = scan.next();
+
+        int idx = searchStudent(number);
+        if (idx == -1) {
+            System.out.println("해당 학생을 찾을 수 없습니다.");
+            return;
+        }
+
+        Student s = students.get(idx);
+
+        System.out.println("수정할 정보를 선택하세요:");
+        System.out.println("1. 이름 | 2. 나이 | 3. 전화번호 | 4. 주소");
+        int choice = scan.nextInt();
+        scan.nextLine(); // 버퍼 정리
+
+        switch (choice) {
+            case 1:
+                System.out.print("새 이름: ");
+                s.setStudentName(scan.nextLine());
+                break;
+            case 2:
+                System.out.print("새 나이: ");
+                s.setAge(scan.nextInt());
+                break;
+            case 3:
+                System.out.print("새 전화번호: ");
+                s.setStdPhone_number(scan.nextLine());
+                break;
+            case 4:
+                System.out.print("새 주소: ");
+                s.setStudentAddress(scan.nextLine());
+                break;
+            default:
+                System.out.println("잘못된 선택입니다.");
+        }
+
+        System.out.println("학생 정보 수정 완료!");
+    }
+
+    @Override
+    public void deleteStudent(Scanner scan) {
+        System.out.println("삭제할 학생의 학번을 입력하세요:");
+        String number = scan.next();
+
+        int idx = searchStudent(number);
+        if (idx == -1) {
+            System.out.println("해당 학생을 찾을 수 없습니다.");
+            return;
+        }
+
+        students.remove(idx);
+        System.out.println("학생 삭제 완료!");
+    }
+
+    @Override
+    public void insertSubject(Scanner scan) {
+        System.out.println("수강신청할 학생 학번을 입력하세요:");
+        String number = scan.next();
+
+        int target = searchStudent(number);
+        if (target == -1) {
+            System.out.println("해당 학생을 찾을 수 없습니다.");
+            return;
+        }
+
+        Subject subject = new Subject();
+
+        System.out.print("과목코드를 입력하세요: ");
+        subject.setSubjectCode(scan.next());
+
+        System.out.print("과목명을 입력하세요: ");
+        subject.setSubjectName(scan.next());
+
+        System.out.print("수강기간을 입력하세요: ");
+        subject.setSubjectPeriod(scan.next());
+
+        System.out.print("시수를 입력하세요: ");
+        subject.setSubjectHours(scan.next());
+
+        System.out.print("강사명을 입력하세요: ");
+        subject.setSubjectLecturer(scan.next());
+
+        System.out.print("강의장을 입력하세요: ");
+        subject.setSubjectLocation(scan.next());
+
+        students.get(target).insertSubject(subject);
+        System.out.println("수강신청 완료!");
+    }
+
+    @Override
+    public void deleteSubject(Scanner scan) {
+        System.out.println("수강철회할 학생의 학번을 입력하세요:");
+        String number = scan.next();
+
+        int targetIdx = searchStudent(number);
+        if (targetIdx == -1) {
+            System.out.println("해당 학생을 찾을 수 없습니다.");
+            return;
+        }
+
+        System.out.print("삭제할 과목코드를 입력하세요: ");
+        String subjectCode = scan.next();
+
+        Subject dummy = new Subject();
+        dummy.setSubjectCode(subjectCode);
+
+        students.get(targetIdx).deleteSubject(dummy);
+    }
+
+    @Override
+    public void printSubjectperStudent(Scanner scan) {
+        System.out.println("조회할 과목코드를 입력하세요:");
+        String subjectCode = scan.next();
+
+        int applicantCount = 0;
+        for (Student s : students) {
+            for (Subject sub : s.getSubjects()) {
+                if (sub.getSubjectCode().equals(subjectCode)) {
+                    applicantCount++;
+                    System.out.println("\n[신청자 " + applicantCount+"]");
+                    s.printStudentSummaryIfEnrolled(subjectCode);
+                    break;
+                }
+            }
+        }
+
+        if (applicantCount == 0) {
+            System.out.println("해당 과목을 수강 중인 학생이 없습니다.");
+        }
+    }
+
+    public int menuPrint(Scanner scan) {
+        System.out.println("\n-- menu --");
+        System.out.println("1. 학생등록 | 2. 학생리스트 | 3. 학생검색");
+        System.out.println("4. 수강신청 | 5. 수강철회 | 6. 학생정보수정");
+        System.out.println("7. 학생삭제 | 8. 과목별 신청자 조회 | 9. 종료");
+        System.out.print("선택: ");
+        return scan.nextInt();
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+}

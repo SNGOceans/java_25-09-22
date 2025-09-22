@@ -1,0 +1,11 @@
+package day10;
+
+public class ProductMain {
+
+	public static void main(String[] args) {
+		// Product class : name, price
+		// Order class : Product 상속 / 수량(Count) / 금액 (Total)
+
+	}
+
+}

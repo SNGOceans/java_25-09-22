@@ -1,0 +1,80 @@
+package day16;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalDouble;
+import java.util.Scanner;
+
+public class Student {
+	// Student Class 생성 (이름, 점수)
+	// Student class List 생성 객체를 추가 (10명)
+	// 학생 출력 : 홍길동 : 56
+	// 점수합계 출력
+	// 전체 인원 수
+	// 정렬 : 이름순으로 가나다라 정렬 (이름 순으로 오름차순)
+	
+	private List<String> nameList = new ArrayList<>();
+    private List<Integer> scoreList = new ArrayList<>();
+		
+	// 기본 생성자
+	public Student() {
+		nameList.add("홍길동");
+		scoreList.add(95);
+	}
+
+	// 매개변수 생성자: 외부에서 리스트를 받아 초기화
+	public Student(List<String> nameList, List<Integer> scoreList) {
+	    this.nameList = nameList;
+	    this.scoreList = scoreList;
+	}
+	
+	// 학생 정보 추가 메서드
+	public void addStudent(Scanner scan) {
+		System.out.println("학생 이름을 입력하세요>");
+		String name = scan.next();
+		
+		System.out.println("점수를 입력하세요>");
+		int score = scan.nextInt();
+		
+		nameList.add(name); 
+		scoreList.add(score);
+		
+		System.out.println("학생 정보가 추가되었습니다.");
+	}
+	
+	// 학생 및 점수 출력 메서드
+	public void printStudent() {
+		if(nameList.isEmpty()) {
+			System.out.println("등록된 학생이 없습니다.");
+		}
+		
+		for(int i=0; i<nameList.size(); i++) {
+			System.out.println("\n학생 이름 (i+1):"+nameList.get(i)+"점수: "+scoreList.get(i));
+		}
+	}
+	
+	// 전체 인원 수 / 점수 합계, 평균 출력 메서드
+	public void printStudentInfo() {
+		if(nameList.isEmpty()) {
+			System.out.println("등록된 학생이 없습니다.");
+		}
+		
+		// 전체 인원 수를 계산
+		int sum1 = (int) nameList.stream()
+						         .count();
+		// 점수 합계를 계산
+		int sum2 = scoreList.stream()
+                  		    .mapToInt(Integer::intValue)
+                            .sum();
+		// 평균 점수를 계산 
+		double avg = scoreList.stream()
+					          .mapToInt(Integer::intValue)
+					          .average()
+					          .orElse(0.0);							
+
+		System.out.println("1. 전체 인원 수: " +sum1+
+						   "\n2. 점수 합계: "+sum2+
+						   "\n3. 평균 점수: "+avg);
+	}
+	
+}

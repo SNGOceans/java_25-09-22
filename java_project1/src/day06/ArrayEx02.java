@@ -1,0 +1,40 @@
+package day06;
+
+public class ArrayEx02 {
+
+	public static void main(String[] args) {
+        String[] fileName = {
+            "이것이자바다.java", "java의 정석.java", "Array.txt", 
+            "array.java", "String.png", "StringMethod.jpg",
+            "ArrayMethod.java", "method.png", "javaMethod.jpg"
+        };
+
+        System.out.println("그림 파일 목록 (jpg, png):");
+
+//        for (String file : fileName) {
+//            // 파일명을 '.' 기준으로 나눔
+//            String[] parts = file.split("\\.");
+//            
+//            // 확장자가 존재하고, 마지막 부분이 jpg 또는 png인지 확인
+//            if (parts.length > 1) {
+//                String ext = parts[parts.length - 1].toLowerCase(); // 확장자 소문자로 변환
+//                if (ext.equals("jpg") || ext.equals("png")) {
+//                    System.out.println(file);
+//                }
+//            }
+//        }
+        String[] ext = new String[fileName.length];
+        
+        for (int i = 0; i < fileName.length; i++) {
+            int dotIndex = fileName[i].lastIndexOf(".");
+            if (dotIndex != -1) {
+                String extension = fileName[i].substring(dotIndex + 1).toLowerCase(); // 확장자 추출 및 소문자 변환
+                if (extension.equals("jpg") || extension.equals("png")) {
+                    System.out.println(fileName[i]); // 그림 파일만 출력
+                }
+            } else {
+                ext[i] = ""; // 확장자 없음
+            }
+        }
+    }
+}
