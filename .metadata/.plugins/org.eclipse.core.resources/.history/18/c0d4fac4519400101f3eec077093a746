@@ -1,0 +1,97 @@
+package advancedDictionaryManager;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class WordController implements DictionaryProgram {
+
+    // 단어 사전: 단어(key) → 뜻(value)
+    private Map<String, String> dictionary = new HashMap<>();
+
+    // 기본 생성자
+    public WordController() {
+    	// 기본 단어 5개 등록
+        dictionary.put("apple", "사과");
+        dictionary.put("banana", "바나나");
+        dictionary.put("grape", "포도");
+        dictionary.put("peach", "복숭아");
+        dictionary.put("lemon", "레몬");
+    }
+
+    // 매개변수 생성자: 외부에서 Map을 전달받아 초기화
+    public WordController(Map<String, String> dictionary) {
+        this.dictionary = dictionary;
+    }
+
+    @Override
+    public void addDict(Scanner scan) {    	
+    	System.out.println("단어를 입력하세요:");
+        String Voca = scan.next();
+        // 중복 체크
+        if (dictionary.containsKey(Voca)) {
+            System.out.println("이미 등록된 단어입니다.");
+            return;
+        }
+        
+        System.out.print("뜻(의미)를 입력하세요> ");
+        String Meaning = scan.next();
+        
+        dictionary.put(Voca, Meaning);        
+    }
+
+    @Override
+    public void searchVoca(Scanner scan) {
+    	System.out.print("검색할 단어를 입력하세요: ");
+        String Voca = scan.next();
+
+        if (dictionary.containsKey(Voca)) {
+            System.out.println(Voca + " : " + dictionary.get(Voca));
+        } else {
+            System.out.println("등록되지 않은 단어입니다.");
+        }
+    }
+
+    @Override
+    public void reviseMeaning(Scanner scan) {
+    	System.out.print("수정할 단어를 입력하세요: ");
+        String Voca = scan.next();
+
+        if (dictionary.containsKey(Voca)) {
+            System.out.print("새로운 뜻을 입력하세요: ");
+            String newMeaning = scan.next();
+            dictionary.put(Voca, newMeaning);
+            System.out.println("수정되었습니다.");
+        } else {
+            System.out.println("해당 단어는 등록되어 있지 않습니다.");
+        }
+    }
+
+    @Override
+    public void printVoca() {
+    	System.out.println("--- 단어 목록 ---");
+        for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+    }
+
+    @Override
+    public void deleteVoca(Scanner scan) {
+    	System.out.print("삭제할 단어를 입력하세요: ");
+        String Voca = scan.next();
+
+        if (dictionary.remove(Voca) != null) {
+            System.out.println("삭제되었습니다.");
+        } else {
+            System.out.println("해당 단어는 존재하지 않습니다.");
+        }
+    }
+
+	public Map<String, String> getDictionary() {
+		return dictionary;
+	}
+
+	public void setDictionary(Map<String, String> dictionary) {
+		this.dictionary = dictionary;
+	}
+}

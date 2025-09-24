@@ -1,0 +1,25 @@
+package banking;
+
+import java.util.Scanner;
+
+public class BankMain {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        BankController controller = new BankController();
+
+        while (true) {
+        	controller.menuPrint();
+        	String choice = scan.nextLine();
+            
+            switch (choice) {
+                case "1": controller.depositMoney(scan); break;
+                case "2": controller.withdrawMoney(scan); break;
+                case "3": controller.transferMoney(scan); break;
+                case "4": controller.printaccountInfo(); break;
+                case "5": controller.saveFileInfo(); break;
+                case "6": System.out.println("프로그램을 종료합니다."); return;
+                default: System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
+            }
+        }
+    }
+}

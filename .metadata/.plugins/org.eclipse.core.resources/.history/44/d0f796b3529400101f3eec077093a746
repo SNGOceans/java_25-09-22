@@ -1,0 +1,40 @@
+package dictionaryManager;
+
+import java.util.Scanner;
+
+public class DictionaryMain {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        WordController controller = new WordController();
+
+        while (true) {
+            System.out.println("\n📘 단어장 프로그램");
+            System.out.println("1. 단어 등록");
+            System.out.println("2. 단어 검색");
+            System.out.println("3. 단어 뜻 수정");
+            System.out.println("4. 단어 출력");
+            System.out.println("5. 단어 삭제");
+            System.out.println("6. 뜻 추가");
+            System.out.println("7. 종료");
+            System.out.print("메뉴 선택 > ");
+
+            int choice = scan.nextInt();
+            scan.nextLine(); // 버퍼 비우기
+
+            switch (choice) {
+                case 1: controller.addDict(scan); break;
+                case 2: controller.searchVoca(scan); break;
+                case 3: controller.reviseMeaning(scan); break;
+                case 4: controller.printVoca(); break;
+                case 5: controller.deleteVoca(scan); break;
+                case 6: controller.appendMeaning(scan); break;
+                case 7:
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
+                default:
+                    System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
+            }
+        }
+    }
+}

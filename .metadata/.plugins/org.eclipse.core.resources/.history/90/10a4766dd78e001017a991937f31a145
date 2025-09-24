@@ -1,0 +1,16 @@
+package day13;
+
+import java.time.LocalDateTime;
+
+public class Date02 {
+
+	public static void main(String[] args) {
+		// LocalDateTime
+		LocalDateTime today = LocalDateTime.now(); //오늘날짜 리턴
+		System.out.println(today);
+		
+		System.out.println(today.getYear());
+
+	}
+
+}

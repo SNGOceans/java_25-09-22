@@ -1,0 +1,51 @@
+package banking;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class BankController implements BankProgram {
+	
+	private List<String> bankName, accountNumber;
+	private List<Integer> balance, money;
+
+	// 기본 생성자
+	public BankController() {}
+	
+	// 매개변수 생성자
+	public BankController(List<String> bankName, List<String> accountNumber,
+						  List<Integer> balance) {
+		this.bankName = bankName;
+		this.accountNumber = accountNumber;
+
+		for (int i = 0; i < accountNumber.size(); i++) {
+	        this.balance.add(0); // 각 계좌에 초기 잔액 0 할당
+	    }
+	}
+	
+	@Override
+	public void depositMoney(Scanner scan) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void withdrawalMoney(Scanner scan) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void transferMoney(Scanner scan) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void printaccountInfo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+}

@@ -1,0 +1,39 @@
+package day14;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Map02 {
+
+	public static void main(String[] args) {
+		// 과목과 점수를 입력받아 map에 저장
+		// 종료 키워드가 나올 때까지 반복 (1=계속 / 0=종료)
+		// 출력 / 합계 / 평균
+		Map<String, Integer> SubjectScore = new HashMap<>();
+		
+		String continue_flag = "N";
+		
+		while (continue_flag == "Y") {
+			Scanner scan = new Scanner(System.in);
+						
+			System.out.println("과목을 입력하세요>");
+			String subject = scan.nextLine();
+			
+			System.out.println("점수를 입력하세요>");
+			int score = scan.nextInt();
+						
+			// 입력받은 과목과 점수를 Map에 저장
+            SubjectScore.put(subject, score);
+			
+			System.out.println("계속하시겠습니까? (Y/N)");
+			continue_flag = scan.nextLine();
+			
+			if(continue_flag == "N") {
+				break;
+			}
+		}
+
+	}
+
+}

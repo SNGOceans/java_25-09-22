@@ -1,0 +1,75 @@
+package day07;
+
+import java.util.Arrays;
+import day06.Method03;
+
+public class MethodEx02 {
+	
+	public void print (int[] array) {
+		System.out.println(Arrays.toString(array));
+	}
+	
+	public int[] sortArray(int[] arr) {
+		int[] result = new int[arr.length];
+		for(int i=0; i<arr.length-1; i++) {
+	    	for(int j=i+1; j<arr.length; j++) {
+	    		if (arr[i] > arr[j]) {
+	    			int tmp = arr[i];
+	    			arr[i] = arr[j];
+	    			arr[j] = tmp;
+	    		}
+	    	}
+	    }
+		result = arr;
+		System.out.println(Arrays.toString(result));
+		return result;
+	}
+	
+	public void stat(int[] arr) {
+		int sum = 0, max = arr[0], min = arr[0];
+		double average;
+		for(int i=0; i<arr.length; i++) {
+			sum +=arr[i];
+			if (arr[i]>max) {
+	            max = arr[i];
+	        } else if (arr[i]<min) {
+	        	min = arr[i];
+	        }
+		}
+		average = (double)sum/arr.length;
+		System.out.println("합계 : "+sum+" | 평균 : "+average+" | 최댓값 : "+max+" | 최솟값 : "+min);
+	}
+
+	public static void main(String[] args) {
+		// 메서드 생성
+		// 1. 배열을 받아 배열을 출력하는 메서드
+		// 2. 배열을 받아 해당 배열을 오름차순으로 정렬하는 메서드
+		// 3. 배열을 받아 배열의 합계와, 평균, 최대, 최소를 출력하는 메서드
+		int[] arr = {78,56,36,45,25,42,34,56,78,97,25,38,99,35};
+		
+		MethodEx02 m = new MethodEx02();
+		
+		m.print(arr);
+		int[] sorted_array = new int[arr.length];
+		
+		sorted_array = m.sortArray(arr);
+		m.stat(sorted_array);
+		
+		//makeRandom 메서드 호출 배열 생성
+		//출력 => 정렬 => 출력
+		Method06 me = new Method06();
+		
+		int[] random_array_var = new int[5];
+		random_array_var=me.random_arrays(100);
+		
+		System.out.println(Arrays.toString(random_array_var));
+		
+		int[] sorted_random_array = new int[random_array_var.length];
+		sorted_random_array = m.sortArray(random_array_var);
+		
+		// day06 패키지에 있는 Method03 클래스 => sum method 호출
+		Method03 m3 = new Method03();
+		m3.add(10,20);
+	}
+
+}

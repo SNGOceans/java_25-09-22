@@ -1,0 +1,137 @@
+package day15;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class SaleController implements SaleProgram {
+	/* Sale 클래스 생성 => 제네릭으로 생성
+	 * main
+	 * 1. 메뉴추가|2. 메뉴보기|3. 제품주문|4. 주문내역보기|5. 종료
+	 */
+	
+	// 멤버변수로 메뉴에 대한 List
+	private List<Sale<String,Integer>> menu = new ArrayList<>();
+	
+	// 멤버변수로 주문에 대한 List
+	private List<Order<String,Integer>> order = new ArrayList<>();
+	
+	// 기본 생성자
+	public SaleController() {
+	    menu.add(new Sale<>("아메리카노", 4500));
+	    menu.add(new Sale<>("카페라떼", 5000));
+	    menu.add(new Sale<>("바닐라라떼", 5500));
+	    menu.add(new Sale<>("콜드브루", 4800));
+	    menu.add(new Sale<>("에스프레소", 4000));
+	}
+	
+	// 매개변수 생성자
+	public SaleController(List<Sale<String,Integer>> menu, List<Order<String,Integer>> order) {
+		this.menu = menu;
+		this.order = order;		
+	}
+
+	@Override
+	public void addMenu(Scanner scan) {
+		System.out.println("추가할 메뉴를 입력하세요.");
+        String RegisterMenu = scan.next();
+        
+        boolean exists = false;
+        for (Sale<String, Integer> item : menu) {
+            if (item.getMenu().equals(RegisterMenu)) {
+                exists = true;
+                break;
+            }
+        }
+        if (exists) {
+            System.out.println("이미 리스트에 존재하는 메뉴입니다.");
+            return;
+        }
+        
+        System.out.print("가격을 입력하세요. ");
+        int price = scan.nextInt();
+        
+        menu.add(new Sale<>(RegisterMenu,price));
+	}
+
+	@Override
+	public void printMenu() {
+		if(menu.isEmpty()) {
+			System.out.println("등록된 메뉴가 없습니다.");
+			return;
+		}
+		
+		System.out.println("--- 메뉴 리스트 ---");
+	    for (int i = 0; i < menu.size(); i++) {
+	        Sale<String, Integer> item = menu.get(i);
+	        System.out.println((i + 1) + ". " + item.getMenu() + " - " + item.getPrice() + "원");
+	    }
+		
+	}
+	
+	@Override
+	public int searchProduct(String menuName) {
+	    for (int i = 0; i < menu.size(); i++) {
+	        if (menu.get(i).getMenu().equals(menuName)) {
+	            return i;
+	        }
+	    }
+	    return -1;
+	}
+	
+	@Override
+	public void orderProduct(Scanner scan) {
+		
+		System.out.println();
+		printMenu();
+		
+	    System.out.print("주문하실 메뉴 이름을 입력해주세요: ");
+	    String menuName = scan.next();
+
+	    int index = searchProduct(menuName);
+	    if (index == -1) {
+	        System.out.println("해당 메뉴는 존재하지 않습니다.");
+	        return;
+	    }
+
+	    System.out.print("수량을 입력해주세요: ");
+	    int count = scan.nextInt();
+
+	    Sale<String, Integer> selected = menu.get(index);
+	    Order<String, Integer> newOrder = new Order<>(selected.getMenu(), selected.getPrice(), count);
+	    
+	    order.add(newOrder);
+
+	    System.out.println("주문이 완료되었습니다: " + newOrder.getMenu() + 
+	    		" " + count + "잔, 총 " + newOrder.getTotal() + "원");
+	}
+	
+	@Override
+	public void printOrderList() {
+	    if (order.isEmpty()) {
+	        System.out.println("주문 내역이 없습니다.");
+	        return;
+	    }
+
+	    System.out.println("--- 주문 내역 ---");
+
+	    int totalCount = 0;
+	    int totalPrice = 0;
+
+	    for (int i = 0; i < order.size(); i++) {
+	        Order<String, Integer> o = order.get(i);
+	        System.out.println((i + 1) + ". " + o.getMenu() + " : " + o.getCount() + "개, 총 " + o.getTotal() + "원");
+	        totalCount += o.getCount();
+	        totalPrice += o.getTotal();
+	    }
+
+	    System.out.println("\n총 주문 개수 : " + totalCount + "개, " + totalPrice + "원 (총계)");
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+	
+} 

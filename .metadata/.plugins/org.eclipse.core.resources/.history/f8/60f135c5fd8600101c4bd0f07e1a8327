@@ -1,0 +1,36 @@
+package day06;
+
+import java.util.Scanner;
+
+public class Exam01 {
+
+	public static void main(String[] args) {
+		/* 야구게임
+		 * 컴퓨터가 랜덤으로 3자리의 숫자를 생성
+		 * (각 자리의 수는 0~9)(중복 불가능)
+		 * => 배열로 저장 (랜덤)(중복 불가능)
+		 * 유저가 3자리를 맞추는 게임.
+		 * 자리와 숫자가 같이 일치하면 strike
+		 * 자리는 불일치, 숫자만 일치하면 ball,
+		 * 자리도 숫자도 안맞으면 out
+		 * 
+		 * ex) com: 1 2 3
+		 * user : 1 5 9 => 1s.
+		 * user : 2 5 8 => 1b.
+		 * user : 7 8 9 => out.
+		 * user : 1 9 5 => 1s.
+		 * user : 1 2 8 => 2b.
+		 * user : 1 2 3 => 3s. 정답!
+		 */
+		int[] comNum = new int[3];
+		for(int i=0; i<comNum.length; i++) {
+			comNum[i] = (int)(10*(Math.random())+1);
+		}
+		
+		int[] userNum = new int[3];
+		
+		
+		Scanner scan = new Scanner(System.in);
+	}
+
+}

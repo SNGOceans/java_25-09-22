@@ -1,0 +1,19 @@
+package day13;
+
+import java.util.Date;
+import java.util.Calendar;
+
+public class Date01 {
+
+	public static void main(String[] args) {
+		// 날짜 시간 클래스
+		/* Date 클래스
+		 * 
+		 */
+		
+		Date date = new Date();
+		System.out.println(Calendar.DAY_OF_MONTH);
+	}
+	
+
+}

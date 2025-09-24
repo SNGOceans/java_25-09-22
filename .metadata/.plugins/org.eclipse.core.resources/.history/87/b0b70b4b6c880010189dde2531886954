@@ -1,0 +1,54 @@
+package day07;
+
+import java.util.Scanner;
+
+public class Method05 {
+	// 두 정수를 입력받아, 최대공약수를 리턴하는 메서드
+	/* 리턴타입:
+	 * 매개변수:
+	 * 메서드명: gcd
+	 */
+	
+	// 두 정수를 입력받아, 최소공배수를 리턴하는 메서드
+	/* 리턴타입:
+	 * 매개변수:
+	 * 메서드명: lcm
+	 */
+	
+	public int gcd(int num1, int num2) {
+		while (num2 != 0) {
+	        int temp = num2;
+	        num2 = num1 % num2;
+	        num1 = temp;
+	    }
+	    return num1;
+	}
+	
+	public int lcm(int num1, int num2) {
+		return num1 * num2 / gcd(num1, num2);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("산수 종류를 입력하세요>");
+		
+		Scanner scan = new Scanner(System.in);
+		String input = scan.next();
+				
+		scan.nextLine();
+		System.out.println("숫자를 입력하세요");
+		
+		String inputNum = scan.nextLine(); // 한 줄 입력 받기
+		String[] tokens = inputNum.trim().split(" "); // 문자 나누기
+		
+		int[] numbers = new int[tokens.length]; // 학생 이름
+		
+		Method05 m5 = new Method05();
+		int gcd = m5.gcd(numbers[0], numbers[1]);
+		System.out.println(gcd);
+		
+		int lcm = m5.lcm(numbers[0], numbers[1]);
+		System.out.println(lcm);
+	}
+
+}

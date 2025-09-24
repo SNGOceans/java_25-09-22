@@ -1,0 +1,39 @@
+package day06;
+
+import java.util.Scanner;
+
+public class ArrayEx01 {
+
+	public static void main(String[] args) {
+		// 파일명을 저장하고 있는 배열이 주어졌을 때
+		// 검색어를 입력하면 해당 검색어를 포함하고 있는 파일을 출력
+		// 만약에 검색 결과가 없다면 => 일치하는 항목이 없습니다 출력.
+		
+		String[] fileName = {
+				"이것이자바다.java", "java의 정석.java", "Array.txt", 
+				"array.java", "String.png", "StringMethod.jpg",
+				"ArrayMethod.java", "method.png", "javaMethod.jpg"
+		};
+		
+		// 대소문자 구분없이 검색어 출력		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("검색어를 입력해주세요>");
+		
+		String mysearch = scan.nextLine();
+		boolean found = true;
+		
+		for (String file: fileName) {
+			if(file.equalsIgnoreCase(mysearch)) {
+				found = true;
+				System.out.println("찾았습니다: " + file);
+				break;
+			}
+		}
+		
+		if (!found) {
+            System.out.println("해당 파일을 찾을 수 없습니다.");
+        }
+
+	}
+
+}

@@ -1,0 +1,24 @@
+package day14;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Set01 {
+
+    public static void main(String[] args) {
+        // Set 생성 및 과일 추가
+        Set<String> fruits = new HashSet<>();
+
+        fruits.add("사과");
+        fruits.add("배");
+        fruits.add("귤");
+        fruits.add("복숭아");
+        fruits.add("포도");
+
+        // 출력
+        System.out.println("--- 과일 목록 ---");
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
+    }
+}

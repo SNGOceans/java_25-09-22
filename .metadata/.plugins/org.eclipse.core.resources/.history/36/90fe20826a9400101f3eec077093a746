@@ -1,0 +1,28 @@
+package advancedDictionaryManager;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class DictionaryMain {
+
+    public static void main(String[] args) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        WordController controller = new WordController();
+        
+        int choice = 0;
+        while (true) {
+            controller.menuPrint(scan);
+            switch (choice) {
+                case 1: controller.addDict(scan); break;
+                case 2: controller.searchVoca(scan); break;
+                case 3: controller.appendMeaning(scan); break;
+                case 4: controller.reviseMeaning(scan); break;
+                case 5: controller.printVoca(); break;
+                case 6: controller.deleteVoca(scan); break;
+                case 7: controller.saveFileVoca(scan); break;
+                case 8: System.out.println("프로그램을 종료합니다."); return;
+                default: System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
+            }
+        }
+    }
+}

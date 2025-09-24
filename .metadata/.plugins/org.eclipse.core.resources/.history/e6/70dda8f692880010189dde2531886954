@@ -1,0 +1,191 @@
+package day07;
+
+import java.util.Arrays;
+
+public class MethodEx03 {
+	
+	// 1. 배열을 매개변수로 받아 랜덤수를 채워주는 메서드 / 중복제거
+	public int[] random_number(int[] arr) {
+		int result[] = new int[arr.length];
+		boolean isDuplicate;
+			for(int i=0; i<result.length; i++) {
+				do {
+					isDuplicate = false;
+					result[i] = (int)((45)*Math.random()+1);
+					for(int j=0; j<i; j++) {
+						if(result[i] == result[j]) {
+							isDuplicate = true;
+							break;
+						}
+					}
+				}
+				while (isDuplicate);
+			}
+		return result;
+	}
+	
+	// 2. 배열을 출력하는 메서드
+	public void print (int[] arr) {
+		System.out.println(Arrays.toString(arr));
+	}
+	
+	// 3. 당첨을 확인하는 메서드
+	public void check_winning(int[] userNum, int[] comNum) {
+		int count = 0;
+		boolean bonus_flag = false;
+		for(int i=0; i<userNum.length; i++) {
+			for(int j=0; j<comNum.length-1; j++) {
+				if(userNum[i] == comNum[j]) {
+                   count++;
+				} 
+			}
+		}
+		
+		// 2. 보너스 번호 비교 (comNum[6])
+	    for (int i = 0; i < userNum.length; i++) {
+	        if (userNum[i] == comNum[comNum.length - 1]) {
+	            bonus_flag = true;
+	            break;
+	        }
+	    }
+		
+		if (count == 6) {
+			System.out.println("6개 일치 : 1등 (보너스 제외)");
+		} else if (count == 5) {
+			if (bonus_flag == true) {
+				System.out.println("5개 일치 + 보너스 : 2등");
+			}
+			else {
+				System.out.println("5개 일치 : 3등");
+			}
+		} else if (count == 4) {
+			System.out.println("4개 일치 : 4등");
+		} else if (count == 3) {
+			System.out.println("3개 일치 : 3등");
+		} else {
+			System.out.println("안타깝게도 꽝입니다!!");
+		}
+
+	}
+	
+//	public static void main(String[] args) {
+//		/* 로또 번호 생성
+//		 * User 번호 6개
+//		 * 1~45까지 중 6개 번호를 랜덤으로 생성 (자동)
+//		 * 당첨 번호 7개 (보너스번호 +1)
+//		 * 
+//		 * 당첨번호와 유저 번호를 비교하여 등수 추출
+//		 * 6개 일치 : 1등 (보너스 제외)
+//		 * 5개 일치 + 보너스 : 2등
+//		 * 5개 일치 : 3등
+//		 * 4개 일치 : 4등
+//		 * 3개 일치 : 5등
+//		 * 나머지 꽝!
+//		 */
+//		
+//		int[] user = new int[6]; // 로또 자동번호 배열
+//		int[] user_input = new int[6];
+//		
+//		int[] lotto = new int[7]; // 당첨번호 배열
+//		int[] lotto_answer = new int[7];
+//		
+//		MethodEx03 m = new MethodEx03();
+//		
+//		user_input = m.random_number(user);
+//		lotto_answer = m.random_number(lotto);
+//		
+//		m.print(user_input);
+//		m.print(lotto_answer);
+//		
+//		m.check_winning(user_input,lotto_answer);
+//		
+//	}
+	
+	public static void main(String[] args) {
+	    int winCount = 0;
+	    int firstRankCount = 0;
+	    int bestRank = Integer.MAX_VALUE;
+	    int[] bestUser = null;
+	    int[] bestLotto = null;
+	    int max_trial = 10000000;
+
+	    MethodEx03 m = new MethodEx03();
+
+	    for (int trial = 1; trial <= max_trial; trial++) {
+	        int[] user_input = m.random_number(new int[6]);
+	        int[] lotto_answer = m.random_number(new int[7]);
+
+	        int matchCount = 0;
+	        boolean bonus_flag = false;
+
+	        // 일반 번호 비교
+	        for (int i = 0; i < user_input.length; i++) {
+	            for (int j = 0; j < lotto_answer.length - 1; j++) {
+	                if (user_input[i] == lotto_answer[j]) {
+	                    matchCount++;
+	                    break;
+	                }
+	            }
+	        }
+
+	        // 보너스 번호 비교
+	        for (int i = 0; i < user_input.length; i++) {
+	            if (user_input[i] == lotto_answer[lotto_answer.length - 1]) {
+	                bonus_flag = true;
+	                break;
+	            }
+	        }
+
+	        int rank = 0;
+	        if (matchCount == 6) {
+	            rank = 1;
+	            firstRankCount++;
+	            System.out.println("🎉 1등 당첨!");
+	        } else if (matchCount == 5 && bonus_flag) {
+	            rank = 2;
+	            System.out.println("🎉 2등 당첨!");
+	        } else if (matchCount == 5) {
+	            rank = 3;
+	            System.out.println("🎉 3등 당첨!");
+	        } else if (matchCount == 4) {
+	            rank = 4;
+	            System.out.println("🎉 4등 당첨!");
+	        } else if (matchCount == 3) {
+	            rank = 5;
+	            System.out.println("🎉 5등 당첨!");
+	        }
+
+	        if (rank > 0) {
+	            winCount++;
+	            if (rank < bestRank) {
+	                bestRank = rank;
+	                bestUser = Arrays.copyOf(user_input, user_input.length);
+	                bestLotto = Arrays.copyOf(lotto_answer, lotto_answer.length);
+	            }
+
+	            System.out.println("사용자 번호:");
+	            m.print(user_input);
+	            System.out.println("당첨 번호:");
+	            m.print(lotto_answer);
+	            System.out.println("-----------------------------");
+	        }
+	    }
+
+	    System.out.println("총 당첨 횟수: " + winCount + " / " + max_trial + "회");
+	    System.out.println("1등 당첨 횟수: " + firstRankCount);
+
+	    double firstRankProbability = (double) firstRankCount / max_trial * 100;
+	    System.out.printf("1등 당첨 확률: %.6f%%\n", firstRankProbability);
+
+	    if (bestRank != Integer.MAX_VALUE) {
+	        System.out.println("🎯 가장 높은 등수: " + bestRank + "등");
+	        System.out.println("📌 해당 사용자 번호:");
+	        m.print(bestUser);
+	        System.out.println("📌 해당 당첨 번호:");
+	        m.print(bestLotto);
+	    } else {
+	        System.out.println("😢 " + max_trial + "회 중 당첨된 번호가 없습니다.");
+	    }
+	}
+
+}

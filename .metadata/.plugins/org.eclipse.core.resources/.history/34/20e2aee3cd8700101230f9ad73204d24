@@ -1,0 +1,43 @@
+package day07;
+
+public class Method03 {
+
+	public int add(int num1, int num2) {
+		return num1 + num2;
+	}
+	
+	public int minus(int num1, int num2) {
+		return num1 - num2;
+	}
+	
+	public int times(int num1, int num2) {
+		return num1 * num2;
+	}
+	
+	public double division(int num1, int num2) {
+		int result = 0;
+		if(num2 ==0) {
+			System.out.println("Infinity");
+		} else {
+			result = num1 / num2;
+		}
+		return result;
+	}
+	
+	public int remainder(int num1, int num2) {
+		return num1 % num2;
+	}
+	
+	public static void main(String[] args) {
+		// + - * / % 기능을 하는 메서드를 생성
+		// main에서 호출 => 출력
+		
+		int num1 = 10, num2 = 20;
+		// 두 수의 + - * / % 의 결과를 메서드를 호출하여 출력
+		int add_var = 0, minus_var = 0, times_var = 0, div_var = 0, remainder_var = 0;
+		Method03 m = new Method03(); // main 안에서 클래스를 객체화
+		result = m.minus(numbers[0], numbers[1]);
+
+	}
+
+}

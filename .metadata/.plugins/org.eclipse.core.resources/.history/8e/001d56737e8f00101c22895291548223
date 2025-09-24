@@ -1,0 +1,31 @@
+package day14;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class List01 {
+
+	public static void main(String[] args) {
+		// List => ArrayList
+		List<Integer> list = new ArrayList<>();
+		
+		// add() : 요소를 추가
+		list.add(1); // 오토박싱
+		list.add(new Integer(2)); // 직접 객체 생성 후 저장, 잘 쓰지 않는 기능.
+		list.add(3);
+		System.out.println(list); // 자체 toString() 호출.
+		
+		// get(index) : index 번지의 값을 가져오기.
+		// arr[0] 와 같은 의미
+		// index는 0번지부터 시작.
+		System.out.println(list.get(0));
+		System.out.println(list.get(1));
+		System.out.println(list.get(2));
+		
+		// set(index, 값) : Index 번지에 값을 저장.
+		list.set(0, 10);
+		System.out.println(list);
+
+	}
+
+}

@@ -1,0 +1,46 @@
+package day14;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Map02 {
+
+    public static void main(String[] args) {
+        Map<String, Integer> subjectScore = new HashMap<>();
+        Scanner scan = new Scanner(System.in);
+        
+        String continue_flag = "Y"; // 반복 시작을 위해 "Y"로 초기화
+        
+        while (continue_flag.equals("Y")) {
+            System.out.print("과목을 입력하세요> ");
+            String subject = scan.nextLine();
+            
+            System.out.print("점수를 입력하세요> ");
+            int score = scan.nextInt();
+            scan.nextLine(); // 버퍼 비우기
+            
+            // 입력받은 과목과 점수를 Map에 저장
+            subjectScore.put(subject, score);
+            
+            System.out.print("계속하시겠습니까? (Y/N)> ");
+            continue_flag = scan.nextLine().toUpperCase(); // 대소문자 구분 방지
+        }
+        
+        // 출력
+        System.out.println("\n--- 입력된 과목과 점수 ---");
+        for (Map.Entry<String, Integer> entry : subjectScore.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue() + "점");
+        }
+        
+        // 합계 및 평균
+        int total = 0;
+        for (int score : subjectScore.values()) {
+            total += score;
+        }
+        double average = subjectScore.isEmpty() ? 0 : (double) total / subjectScore.size();
+        
+        System.out.println("\n총합: " + total + "점");
+        System.out.printf("평균: %.2f점\n", average);
+    }
+}

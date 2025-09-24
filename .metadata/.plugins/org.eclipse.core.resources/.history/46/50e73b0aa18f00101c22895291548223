@@ -1,0 +1,26 @@
+package day14;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Map01 {
+
+    public static void main(String[] args) {
+        // Map : key/value 쌍으로 저장 (key 중복 불가, value 중복 가능)
+        Map<String, Integer> map = new HashMap<>();
+
+        // 과일 이름(영어)과 가격 추가
+        map.put("apple", 2000);
+        map.put("banana", 2500);
+        map.put("tangerine", 1800);
+        map.put("peach", 3000);
+        map.put("grape", 3500);
+        map.put("grape", 2500);
+
+        // 전체 출력
+        System.out.println("--- Fruit Price List ---");
+        for (String key : map.keySet()) {
+            System.out.println(key + " : " + map.get(key) + " won");
+        }
+    }
+}

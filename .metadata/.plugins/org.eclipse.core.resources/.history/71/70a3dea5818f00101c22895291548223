@@ -1,0 +1,62 @@
+package day14;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class List01 {
+
+	public static void main(String[] args) {
+		// List => ArrayList
+		List<Integer> list = new ArrayList<>();
+		
+		// add() : 요소를 추가
+		list.add(1); // 오토박싱
+		list.add(new Integer(2)); // 직접 객체 생성 후 저장, 잘 쓰지 않는 기능.
+		list.add(3);
+		System.out.println(list); // 자체 toString() 호출.
+		
+		// get(index) : index 번지의 값을 가져오기.
+		// arr[0] 와 같은 의미
+		// index는 0번지부터 시작.
+		System.out.println(list.get(0));
+		System.out.println(list.get(1));
+		System.out.println(list.get(2));
+		
+		// set(index, 값) : Index 번지에 값을 저장.
+		list.set(0, 10);
+		System.out.println(list);
+		
+		int sum = 0;
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i));
+			sum += list.get(i);
+		}
+		System.out.println(sum);
+		
+		//remove(index) : index 번지의 값을 삭제
+		//remove(object) : object 값을 삭제
+		
+		System.out.println(list.remove(0));
+		Integer r = 3;
+		list.remove(r);
+		
+		System.out.println(list.remove(r));
+		
+		System.out.println(list);
+		
+		List<Integer> list1 = new ArrayList<>();		
+		//list1 1~10까지 추가하고 출력 (for문 사용)
+		for(int i=0; i<10; i++) {
+			list1.add(i+1);
+		}
+		System.out.println(list1);
+		
+		list1.set(4, 11);
+		System.out.println(list1);
+		
+		//contains(object) : list object가 있는지 체크
+		System.out.println(list1.contains(5));
+
+	}
+
+}

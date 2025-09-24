@@ -1,0 +1,32 @@
+package day07;
+
+public class Method06 {
+	
+	// 0부터 시작, 랜덤 수를 생성하는 메서드(상한치 입력)
+	public int random_arrays(int high_limit) {
+		int result[] = {0, 0, 0, 0, 0};
+			for(int i=0; result.length; i++) {
+				result[i] = (int)((high_limit)*Math.random());
+			}
+		return result;
+	}
+	
+	public int average(int[] dataset = new int[]) {
+		
+	}
+
+	public static void main(String[] args) {
+		// 메서드의 배열활용
+		/* 1. 랜덤수(0~100) 정수 5개를 담는 배열을 생성하여 리턴하는 메서드 int[]
+		 * 2. 1에서 만든 배열을 입력받아 평균을 리턴하는 메서드
+		 * 3. 1에서 만든 배열을 출력하고,
+		 * 	  2에서 만든 평균을 출력하는 메서드
+		 * 
+		 * main에서 호출
+		 */
+		
+		
+		
+	}
+
+}

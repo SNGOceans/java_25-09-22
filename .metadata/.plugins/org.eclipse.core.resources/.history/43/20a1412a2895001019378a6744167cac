@@ -1,0 +1,204 @@
+package banking;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class BankController implements BankProgram {
+
+    private List<Bank> bank = new ArrayList<>();
+    private Customer myBank;
+
+    public BankController() {
+        bank.add(new Bank("우리은행"));
+        bank.add(new Bank("신한은행"));
+
+        bank.get(0).addCustomer(new Customer("우리은행", "이서연", "ACC1003", 25000));
+        bank.get(1).addCustomer(new Customer("신한은행", "홍길동", "ACC1001", 20000));
+        bank.get(1).addCustomer(new Customer("신한은행", "김철우", "ACC1002", 30000));
+        bank.get(0).addCustomer(new Customer("우리은행", "최지훈", "ACC1004", 40000));
+        bank.get(0).addCustomer(new Customer("우리은행", "정유진", "ACC1005", 18000));
+    }
+
+    @Override
+    public void menuPrint() {
+        System.out.println("\n=== 은행 프로그램 ===");
+        System.out.println("1. 입금");
+        System.out.println("2. 출금");
+        System.out.println("3. 계좌이체(타계좌 송금)");
+        System.out.println("4. 전체 계좌정보 보기");
+        System.out.println("5. 종료");
+        System.out.print("메뉴 선택: ");
+    }
+
+    @Override
+    public void depositMoney(Scanner scan) {
+        System.out.print("고객명을 입력하세요: ");
+        String name = scan.nextLine();
+
+        System.out.print("계좌번호를 입력하세요: ");
+        String accNum = scan.nextLine();
+
+        Customer target = null;
+
+        for (Bank b : bank) {
+            Customer c = b.findCustomer(accNum);
+            if (c != null && c.getCustomers().equals(name)) {
+                target = c;
+                break;
+            }
+        }
+
+        if (target == null) {
+            System.out.println("고객명과 계좌번호가 일치하지 않습니다.");
+            return;
+        }
+
+        myBank = target;
+        System.out.print("입금할 금액을 입력하세요: ");
+        int amount = Integer.parseInt(scan.nextLine());
+        target.setBalance(target.getBalance() + amount);
+        System.out.println("입금 완료. 현재 잔액: " + target.getBalance() + "원");
+    }
+
+    @Override
+    public void withdrawMoney(Scanner scan) {
+        System.out.print("고객명을 입력하세요: ");
+        String name = scan.nextLine();
+
+        System.out.print("계좌번호를 입력하세요: ");
+        String accNum = scan.nextLine();
+
+        Customer target = null;
+
+        for (Bank b : bank) {
+            Customer c = b.findCustomer(accNum);
+            if (c != null && c.getCustomers().equals(name)) {
+                target = c;
+                break;
+            }
+        }
+
+        if (target == null) {
+            System.out.println("고객명과 계좌번호가 일치하지 않습니다.");
+            return;
+        }
+
+        myBank = target;
+        System.out.println("받는 사람 이름: " + target.getCustomers());
+        System.out.print("받는 사람 이름이 일치합니까? (Y/N): ");
+        String confirm = scan.nextLine().trim().toUpperCase();
+        if (!confirm.equals("Y")) {
+            System.out.println("출금을 취소합니다.");
+            return;
+        }
+
+        System.out.print("출금할 금액을 입력하세요: ");
+        int amount = Integer.parseInt(scan.nextLine());
+        if (target.getBalance() >= amount) {
+            target.setBalance(target.getBalance() - amount);
+            System.out.println("출금 완료. 현재 잔액: " + target.getBalance() + "원");
+        } else {
+            System.out.println("잔액이 부족합니다.");
+        }
+    }
+
+    @Override
+    public void transferMoney(Scanner scan) {
+        System.out.print("송금자 이름을 입력하세요: ");
+        String senderName = scan.nextLine();
+
+        System.out.print("송금자 계좌번호를 입력하세요: ");
+        String fromAcc = scan.nextLine();
+
+        System.out.print("수신자 계좌번호를 입력하세요: ");
+        String toAcc = scan.nextLine();
+
+        Customer sender = null;
+        Customer receiver = null;
+
+        for (Bank b : bank) {
+            if (sender == null) {
+                Customer c = b.findCustomer(fromAcc);
+                if (c != null && c.getCustomers().equals(senderName)) {
+                    sender = c;
+                    myBank = c;
+                }
+            }
+            if (receiver == null) {
+                receiver = b.findCustomer(toAcc);
+            }
+        }
+
+        if (sender == null || receiver == null) {
+            System.out.println("계좌 정보를 확인해주세요.");
+            return;
+        }
+
+        System.out.println("수신자 이름: " + receiver.getCustomers());
+        System.out.print("수신자 이름이 일치합니까? (Y/N): ");
+        String confirm = scan.nextLine().trim().toUpperCase();
+        if (!confirm.equals("Y")) {
+            System.out.println("이체를 취소합니다.");
+            return;
+        }
+
+        System.out.print("이체할 금액을 입력하세요: ");
+        int amount = Integer.parseInt(scan.nextLine());
+
+        if (sender.getBalance() < amount) {
+            System.out.println("송금자 잔액이 부족합니다.");
+            return;
+        }
+
+        sender.setBalance(sender.getBalance() - amount);
+        receiver.setBalance(receiver.getBalance() + amount);
+        System.out.println("이체 완료. 송금자 잔액: " + sender.getBalance() + "원");
+    }
+    
+    public String getAccountInfoText() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== 은행별 고객 계좌 정보 ===\n");
+
+        for (Bank b : bank) {
+            sb.append("[").append(b.getBankName()).append("]\n");
+            List<Customer> list = b.getCustomers();
+            if (list.isEmpty()) {
+                sb.append("등록된 고객이 없습니다.\n");
+            } else {
+                int count = 1;
+                for (Customer c : list) {
+                    sb.append("고객").append(count).append(" : ")
+                      .append(c.getCustomers()).append(" / ")
+                      .append(c.getAccountNum()).append(" / ")
+                      .append(c.getBalance()).append("원\n");
+                    count++;
+                }
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+
+    @Override
+    public void printaccountInfo() {
+        System.out.print(getAccountInfoText());
+    }
+    
+    @Override
+    public void saveFileInfo() {
+        String fileName = "account_info.txt";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(getAccountInfoText());
+            System.out.println("계좌 정보가 파일에 저장되었습니다: " + fileName);
+        } catch (Exception e) {
+            System.out.println("파일 저장 중 오류가 발생했습니다.");
+            e.printStackTrace();
+        }
+    }
+}

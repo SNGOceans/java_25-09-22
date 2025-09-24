@@ -1,0 +1,40 @@
+package day14;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class SetEx01 {
+
+    public static void main(String[] args) {
+        Set<Integer> randomNum = new HashSet<>();
+
+        // 중복 없는 랜덤 숫자 6개 생성
+        while (randomNum.size() < 6) {
+            int num = (int)(Math.random()*45) + 1; // 1~45 사이
+            randomNum.add(num); // 중복 자동 제거
+        }
+
+        // 출력
+        System.out.println("--- 랜덤 숫자 6개 ---");
+        for (int n : randomNum) {
+            System.out.print(n + " ");
+        }
+        
+        System.out.println("-------------------");
+        
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        
+        while(treeSet.size()<6) {
+        	int random = (int)(Math.random()*45)+1;
+        	treeSet.add(random);        	
+        }
+        System.out.println(treeSet);
+        
+        System.out.println(treeSet.first());
+        System.out.println(treeSet.last());
+        
+        System.out.println(treeSet.headSet(20));
+        System.out.println(treeSet.tailSet(20));
+    }
+}

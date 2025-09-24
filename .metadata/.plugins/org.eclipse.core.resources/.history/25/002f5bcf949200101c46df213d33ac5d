@@ -1,0 +1,17 @@
+package day15;
+
+import java.util.Scanner;
+
+public interface SaleProgram {
+	
+	/* Sale 클래스 생성 => 제네릭으로 생성
+	 * main
+	 * 1. 메뉴추가|2. 메뉴보기|3. 제품주문|4. 주문내역보기|5. 종료
+	 */
+	
+	void addMenu(Scanner scan);      // 메뉴추가
+    void printMenu();                   // 메뉴보기
+    int searchProduct(String menu);     // 메뉴검색
+    void orderProduct(Scanner scan);      // 제품주문
+    void printOrderList();  // 주문내역 보기
+}

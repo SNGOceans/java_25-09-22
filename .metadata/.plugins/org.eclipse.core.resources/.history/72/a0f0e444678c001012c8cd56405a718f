@@ -1,0 +1,77 @@
+package day10;
+
+import java.util.Scanner;
+
+import day09.Student;
+
+public class Exam01 {
+
+	public static void main(String[] args) {
+		/* Product 클래스를 생성 : 상품을 등록할 때 사용하는 클래스
+		 * 상품명, 가격, 
+		 * 상품명과 가격을 출력하는 메서드
+		 * 상품을 추가하는 메서드
+		 * */
+		
+		/* main에서 Product[10]
+		 * 스캐너를 통해서 상품을 등록받기
+		 * 등록한 상품을 출력
+		 */
+		Product[] Name_product = new Product[10];
+		//Product[] 
+		
+		Scanner scan = new Scanner(System.in);
+		
+		for(int i=0; i<Name_product.length; i++) {
+			System.out.print("상품을 입력하세요> ");
+	        String name = scan.next();
+	        
+	        System.out.print("가격을 입력하세요> ");
+	        int price = scan.nextInt();
+	        
+	        Product m = new Product(name, price);
+	        System.out.println(m);
+	        Name_product[i] = m;
+		}
+		
+		System.out.println("\n등록된 상품 목록:");
+	    for (Product p : Name_product) {
+	        System.out.println("상품명: " + p.getName() + ", 가격: " + p.getPrice());
+	    }
+
+	    scan.close();
+		
+	}
+
+}
+
+class Product {
+	private String name = "미에로화이바";
+	private int price;
+	
+	{
+		this.name = "콜라";
+		this.price = 1000;
+	}
+	
+	public Product(String name, int price) {
+		this.name = name;
+		this.price = price;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}	
+}

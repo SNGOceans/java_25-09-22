@@ -1,0 +1,48 @@
+package day07;
+
+public class Method06 {
+	
+	// 0부터 시작, 랜덤 수를 생성하는 메서드(상한치 입력)
+	public int[] random_arrays(int high_limit) {
+		int result[] = {0, 0, 0, 0, 0};
+			for(int i=0; i<result.length; i++) {
+				result[i] = (int)((high_limit)*Math.random());
+			}
+		return result;
+	}
+	
+	public int average(int[] dataset) {
+		int result = 0;
+		int sum = 0;
+			for (int i=0; i<dataset.length; i++) {
+				sum += dataset[i];
+			}
+			result = sum/dataset.length;
+		return result;
+	}
+	
+	public void print(int average) {
+		System.out.println("입력된 배열의 평균값은 "+average+"입니다.");
+	}
+
+	public static void main(String[] args) {
+		// 메서드의 배열활용
+		/* 1. 랜덤수(0~100) 정수 5개를 담는 배열을 생성하여 리턴하는 메서드 int[]
+		 * 2. 1에서 만든 배열을 입력받아 평균을 리턴하는 메서드
+		 * 3. 1에서 만든 배열을 출력하고,
+		 * 	  2에서 만든 평균을 출력하는 메서드
+		 * 
+		 * main에서 호출
+		 */
+		Method06 m6 = new Method06();
+		
+		int high_limit = 100;
+		int[] random_arrays_var = m6.random_arrays(high_limit);
+		
+		int average_var = m6.average(random_arrays_var);
+		System.out.println(random_arrays_var);
+		m6.print(average_var);	
+		
+	}
+
+}

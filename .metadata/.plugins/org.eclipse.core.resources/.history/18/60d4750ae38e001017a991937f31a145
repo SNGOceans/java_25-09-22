@@ -1,0 +1,21 @@
+package day13;
+
+public class Exception03 {
+
+	public static void main(String[] args) {
+		// 0으로 나누었을 때 발생하는 예외처리
+		
+		try {
+			System.out.println(4+0);
+			System.out.println(4-0);
+			System.out.println(4/0);
+			System.out.println(4%0);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		System.out.println(4*0);
+		System.out.println(4+0);
+	}
+
+}

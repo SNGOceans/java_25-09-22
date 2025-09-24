@@ -1,0 +1,64 @@
+package day13;
+
+import java.util.Scanner;
+
+public class Exception03 {
+
+	public static void main(String[] args) {
+		// 0으로 나누었을 때 발생하는 예외처리
+		
+//		try {
+//			System.out.println(4+0);
+//			System.out.println(4-0);
+//			System.out.println(4/0);
+//			System.out.println(4%0);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		System.out.println(4*0);
+//		System.out.println(4+0);
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("숫자1을 입력하세요.");
+		int num1 = scan.nextInt();
+		
+		System.out.println("수식을 입력하세요.");
+		char op = scan.next().charAt(0);
+		
+		System.out.println("숫자2를 입력하세요.");
+		int num2 = scan.nextInt();
+		
+		Exception03 m = new Exception03();
+		double result = m.Calc(num1, num2, op);
+		
+		try {
+			System.out.println(result);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+
+	// 메서드에서 예외 처리 / 예외 넘기기
+	/* 두 정수를 입력받고, 연산자를 입력받아
+	 * 사친연산의 결과를 return하는 메서드
+	 * 매개변수 : 두 정수와 연산자 int num1, int num2, char op
+	 * return은 일률적으로 double
+	 */
+		
+	public double Calc(int num1, int num2, char op) {
+		
+		switch(op) {
+			case '+': return (double)(num1+num2); 
+			case '-': return (double)(num1-num2); 
+			case '%': return (double)(num1%num2); 
+			case '/': return (double)(num1/num2); 
+			case '*': return (double)(num1*num2); 
+			default: System.out.println("예외가 발생했습니다.");
+					return Double.NaN; 
+		}
+		
+	}
+}

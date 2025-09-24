@@ -1,0 +1,60 @@
+package day16;
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
+public class Stream01 {
+
+    public static void main(String[] args) {
+        // Stream(스트림)
+        /* - 자료구조를 복사하여 스트림 객체로 생성.
+         * - 스트림을 이용한 연산을 수행.
+         * - 연산을 수행한 스트림은 소모됨. 
+         * - 스트림은 기존 자료를 변경할 수 없음.
+         * - 메서드 체이닝 방식을 사용.
+         * - 스트림만의 연산을 가지고 있음.
+         * 
+         * 중간연산 / 최종연산
+         * 
+         * - 최종연산 : 마지막에 하나만 사용이 가능.
+         * forEach() : 리스트내를 순회하며 요소의 값을 얻어서 구성
+         * findFirst() : 조건에 일치하는 요소 중 가장 앞에 있는 요소 리턴
+         * findAny() : 조건에 일치하는 요소 중 가장 먼저 탐색되는 요소 리턴
+         * anyMatch() : 조건에 맞는 요소가 하나라도 있다면 True 리턴
+         * allMatch() : 조건에 모두 맞다면 True 리턴
+         * noneMatch() : 조건에 하나도 맞지 않다면 True 리턴
+         * count(), min(), max() : 요소의 개수, 가장 작은 값, 가장 큰 값 리턴
+         * sum(), average() : 요소의 합계, 평균값을 계산.
+         * collect() : 스트림 내의 요소를 수집하여 사용자가 원하는 형태로 반환.
+         * toArray() : 배열로 리턴.
+         * toList() : 리스트로 리턴.
+         * 
+         * - 중간연산 : 중간에 이어서 사용(중복사용 가능)
+         * filter() : 조건에 맞는 요소만 걸러냄
+         * map() : 요소의 값을 원하는 값으로 가공함 (형변환)
+         * sorted() : 요소를 정렬함 (기본 또는 Comparator 사용)
+         * distinct() : 중복 제거
+         * limit(n) : 앞에서 n개 요소만 추출 (스트림의 일부를 잘라냄)
+         * skip(n) : 앞에서 n개 요소를 건너뜀
+         * peek() : 작업 수행 후 스트림 리턴 (디버깅용으로 활용)
+         * flatMap() : 중첩된 구조를 평탄화하여 하나의 스트림으로 변환
+         */
+    	
+    	int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 8 ,9, 1,2, 3,4 ,5 ,6};
+    	
+    	int sum = 0;
+    	for(int i : arr) {
+    		sum += i;
+    	}
+    	System.out.println(sum);
+    	
+    	System.out.println("--stream을 이용한 합계 구하기--");
+    	// 배열을 스트림으로 구성
+    	int s = Arrays.stream(arr).sum();
+    	System.out.println(s);
+    	
+    	IntStream is = Arrays.stream(arr);
+    	System.out.println(is.sum());
+    	System.out.println(is.count());
+    }
+ }

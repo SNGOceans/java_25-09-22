@@ -1,0 +1,46 @@
+package day16;
+
+public class InnerClass01 {
+
+	public static void main(String[] args) {
+		// InnerClass : 내부 클래스
+		/* 클래스 내부에 선언한 클래스
+		 * 외부 클래스가 쓰려고 직접 선언하는 경우가 많고, 다른 클래스에서
+		 * 해당 내부 클래스를 사용할 일이 없고, 외부 클래스만이 사용하려고 할 때.
+		 * - 중첩 클래스라고도 함.
+		 * 
+		 * 내부적으로 활용할 경우, 클래스를 private로 선언하고 사용하는 것을 권장.
+		 * 내부 클래스는 외부 클래스가 생성된 후 생성 됨.
+		 * 
+		 * private이 아닌 내부 클래스는 외부에서 접근 가능함.
+		 * */
+		OuterClass outclass = new OuterClass();
+		OuterClass.InnerClass inclass = outclass.new InnerClass();
+		
+		inclass.inTest();
+
+	}
+
+}
+
+class OuterClass {
+	private int num = 10;
+	private static int sNum = 20;
+	private InnerClass inClass;
+	
+	public OuterClass() {
+		inClass = new InnerClass();
+	}
+	
+	class InnerClass {
+		int inNum = 100;
+//		static int sinNum = 200; // 에러가 남. InClass 안에서 static은 불가능하다.
+		
+		void inTest() {
+			System.out.println("OutClass의 num = "+num);
+			System.out.println("OutClass의 num = "+sNum);
+			System.out.println("OutClass의 num = "+inNum);
+		}
+		
+	}
+}

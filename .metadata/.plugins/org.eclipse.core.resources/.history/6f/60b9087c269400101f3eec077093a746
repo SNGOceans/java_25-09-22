@@ -1,0 +1,193 @@
+package day16;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Customer {
+    /* 여행사 상품
+     * 여행비용이 15세 이상은 100만원, 15세 미만은 80만원 계산
+     * 고객 5명이 패키지 여행을 떠난다고 가정했을 경우
+     * 1. 비용을 계산 => 출력
+     * 2. 고객 명단 출력
+     * 
+     * Customer 클래스 생성 ArrayList 관리
+     * 
+     * 예)
+     * 이름: 홍길동  나이: 40  비용: 100
+     * 이름: 봉미선  나이: 38  비용: 100
+     * 이름: 짱구   나이: 15  비용: 100
+     * 이름: 짱아   나이: 10  비용: 80
+     * 이름: 흰둥이 나이: 30  비용: 80
+     * 
+     * 3. 20세 이상 성인 고객명단 출력 => 이름순으로 정렬
+     */
+    
+    private List<String> nameList = new ArrayList<>();
+    private List<Integer> ageList = new ArrayList<>();
+    private List<Integer> expenseList = new ArrayList<>();
+    
+    //기본 생성자
+    public Customer() {
+        // Default Name List
+        nameList.add("홍길동");
+        nameList.add("봉미선");
+        nameList.add("짱구");
+        nameList.add("짱아");
+        nameList.add("흰둥이");
+        
+        // Default Age List
+        ageList.add(40);
+        ageList.add(38);
+        ageList.add(15);
+        ageList.add(10);
+        ageList.add(30);
+        
+        // Default Expense List
+        expenseList.add(100);
+        expenseList.add(100);
+        expenseList.add(100);
+        expenseList.add(80);
+        expenseList.add(80);
+    }
+    
+    // 매개변수 생성자: 외부에서 리스트를 받아 초기화
+    public Customer(List<String> nameList, List<Integer> ageList,
+                    List<Integer> expenseList) {
+        this.nameList = nameList;
+        this.ageList = ageList;
+        this.expenseList = expenseList;
+    }
+    
+    // 고객 정보 추가 메서드
+    public void addStudent(Scanner scan) {
+        System.out.println("고객 이름을 입력하세요>");
+        String name = scan.next();
+        
+        System.out.println("나이를 입력하세요>");
+        int age = scan.nextInt();
+        
+        // 나이에 따라 비용 자동 계산
+        int expense = age >= 15 ? 100 : 80;
+        
+        nameList.add(name); 
+        ageList.add(age);
+        expenseList.add(expense);
+        
+        System.out.println("고객 정보가 추가되었습니다.");
+    }
+    
+    // 고객 명단 및 비용 출력 메서드
+    public void printStudent() {
+        if(nameList.isEmpty()) {
+            System.out.println("등록된 고객 정보가 없습니다.");
+        }
+        
+        System.out.println();
+        for(int i=0; i<nameList.size(); i++) {
+            System.out.println("이름: "+nameList.get(i)+" 나이: "+ageList.get(i)
+                                +" 비용: "+expenseList.get(i));
+        }
+        
+        // 전체 인원 수를 계산
+        int sum1 = (int) nameList.stream()
+                                 .count();
+        // 비용 합계를 계산
+        int sum2 = expenseList.stream()
+                            .mapToInt(Integer::intValue)
+                            .sum();
+        
+        int over20 = (int)ageList.stream()
+                                 .filter(n -> n>=20)
+                                 .count();
+        
+        System.out.println("1. 전체 인원 수: " +sum1+
+                           "\n2. 비용 합계: "+sum2+                        
+                           "\n3. 성인 고객: "+over20+"명");
+    }
+    
+    // 내부 클래스: 이름과 점수를 묶기 위한 구조
+    private static class CustomerEntry {
+        String name;
+        int age;
+        int expense;
+
+        CustomerEntry(String name, int age, int expense) {
+            this.name = name;
+            this.age = age;
+            this.expense = expense;
+        }
+    }
+    
+    // 이름 기준 정렬
+    public void sortByName() {
+        List<CustomerEntry> tempList = new ArrayList<>();
+
+        for (int i = 0; i < nameList.size(); i++) {
+            tempList.add(new CustomerEntry(nameList.get(i), ageList.get(i),
+                        expenseList.get(i)));
+        }
+
+        tempList.sort(Comparator.comparing(entry -> entry.name));
+        
+        nameList.clear();
+        ageList.clear();
+        expenseList.clear();
+
+        for (CustomerEntry entry : tempList) {
+            nameList.add(entry.name);
+            ageList.add(entry.age);
+            expenseList.add(entry.expense);
+        }
+
+        System.out.println("이름 기준 정렬 완료!");
+    }
+
+    // 성인 고객 명단 출력 메서드 (20세 이상, 이름순 정렬)
+    public void printAdultCustomers() {
+        sortByName(); // 이름 기준 정렬
+        System.out.println("\n-- 성인 고객 명단 (20세 이상, 이름순 정렬) --");
+        for (int i = 0; i < nameList.size(); i++) {
+            if (ageList.get(i) >= 20) {
+                System.out.println("이름: " + nameList.get(i)
+                        + " | 나이: " + ageList.get(i)
+                        + " | 비용: " + expenseList.get(i));
+            }
+        }
+    }
+    
+    // 메뉴 출력
+    public int menuPrint(Scanner scan) {
+        System.out.println("\n-- menu --");
+        System.out.println("1. 고객 추가 |2. 고객 명단/비용 계산 "
+                            + "|3. 성인(20세 이상) 명단 |4. 종료");
+        System.out.print("선택: ");
+        return scan.nextInt();
+    }
+
+    public List<String> getNameList() {
+        return nameList;
+    }
+
+    public void setNameList(List<String> nameList) {
+        this.nameList = nameList;
+    }
+
+    public List<Integer> getAgeList() {
+        return ageList;
+    }
+
+    public void setAgeList(List<Integer> ageList) {
+        this.ageList = ageList;
+    }
+
+    public List<Integer> getExpenseList() {
+        return expenseList;
+    }
+
+    public void setExpenseList(List<Integer> expenseList) {
+        this.expenseList = expenseList;
+    }    
+    
+}

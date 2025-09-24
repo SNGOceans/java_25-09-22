@@ -1,0 +1,31 @@
+package day15;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import examStudent.Student;
+
+public class SaleController {
+	// 멤버변수로 메뉴에 대한 List
+	private List<Sale<String,Integer>> menu = new ArrayList<>();
+	
+	// 멤버변수로 주문에 대한 List
+	private List<Order<String,Integer>> order = new ArrayList<>();
+	
+	// 기본 생성자
+	public SaleController() {
+	    menu.add(new Sale<>("아메리카노", 4500));
+	    menu.add(new Sale<>("카페라떼", 5000));
+	    menu.add(new Sale<>("바닐라라떼", 5500));
+	    menu.add(new Sale<>("콜드브루", 4800));
+	    menu.add(new Sale<>("에스프레소", 4000));
+	}
+	
+	// 매개변수 생성자
+	public SaleController(List<Sale<String,Integer>> menu, List<Order<String,Integer>> order) {
+		this.menu = menu;
+		this.order = order;		
+	}
+    
+    
+} 

@@ -1,0 +1,51 @@
+package day14;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class SetEx01 {
+
+    public static void main(String[] args) {
+        // HashSet을 사용하여 중복 없는 랜덤 숫자 6개 생성
+        Set<Integer> randomNum = new HashSet<>();
+
+        // 1~45 사이의 숫자를 랜덤으로 생성하여 Set에 추가 (중복 자동 제거)
+        while (randomNum.size() < 6) {
+            int num = (int)(Math.random() * 45) + 1; // 1~45 사이의 정수
+            randomNum.add(num); // 중복된 값은 자동으로 무시됨
+        }
+
+        // HashSet 출력 (순서 보장되지 않음)
+        System.out.println("--- 랜덤 숫자 6개 (HashSet) ---");
+        for (int n : randomNum) {
+            System.out.print(n + " ");
+        }
+
+        System.out.println("\n-------------------");
+
+        // TreeSet을 사용하여 중복 없는 랜덤 숫자 6개 생성 (자동 정렬됨)
+        TreeSet<Integer> treeSet = new TreeSet<>();
+
+        while (treeSet.size() < 6) {
+            int random = (int)(Math.random() * 45) + 1;
+            treeSet.add(random); // 중복 제거 + 자동 오름차순 정렬
+        }
+
+        // TreeSet 전체 출력 (오름차순 정렬된 상태)
+        System.out.println("--- 정렬된 랜덤 숫자 (TreeSet) ---");
+        System.out.println(treeSet);
+
+        // 가장 작은 값 출력
+        System.out.println("가장 작은 값: " + treeSet.first());
+
+        // 가장 큰 값 출력
+        System.out.println("가장 큰 값: " + treeSet.last());
+
+        // 20보다 작은 값들 출력
+        System.out.println("20보다 작은 값들: " + treeSet.headSet(20));
+
+        // 20보다 크거나 같은 값들 출력
+        System.out.println("20 이상 값들: " + treeSet.tailSet(20));
+    }
+}
